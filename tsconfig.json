@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+	"target": "ES5",
+	"module": "system",
+	"moduleResolution": "node",
+	"sourceMap": true,
+	"emitDecoratorMetadata": true,
+	"experimentalDecorators": true,
+	"removeComments": false,
+	"noImplicitAny": false,
+	"outDir":"public/js"
+  },
+  "exclude": [
+	"node_modules",
+	"bin",
+	"config",
+	"middleware",
+	"routes",
+	"views"
+  ]
+}

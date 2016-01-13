@@ -8,9 +8,6 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var session = require("express-session");
 
-var routes = require("./routes/index");
-var users = require("./routes/users");
-
 var app = express();
 
 // view engine setup
@@ -40,9 +37,9 @@ app.use(sassMiddleware({
 	prefix: "/css"
 }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "node_modules")));
 
-app.use("/", routes);
-app.use("/users", users);
+app.use("/", require("./routes"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -69,6 +66,5 @@ app.use(function (err, req, res, next) {
 	err.stack = "";
 	res.sendHttpError(err);
 });
-
 
 module.exports = app;
