@@ -1,16 +1,19 @@
 doctype html
 html
   head
+    script
+      | document.write("<base href='" + document.location + "' />");
     title= title
     link(rel='stylesheet', href='/css/app.css')
     script(src="/angular2/bundles/angular2-polyfills.js")
     script(src="/systemjs/dist/system.src.js")
     script(src="/rxjs/bundles/Rx.js")
     script(src="/angular2/bundles/angular2.dev.js")
+    script(src="/angular2/bundles/router.dev.js")
 
     script
-      |System.defaultJSExtensions = true;
-      |System.import('js/app/boot').then(null, console.error.bind(console));
+      | System.defaultJSExtensions = true;
+      | System.import('js/app/boot').then(null, console.error.bind(console));
 
-  body
+    body
     block content
