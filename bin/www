@@ -10,13 +10,13 @@ app.set("port", port);
 
 var server = http.createServer(app);
 
-if (app.get("env") == "development") {
+/*if (app.get("env") == "development") {
 	const exec = require("child_process").exec;
 	exec("tsc -w", function () {
 		console.log("test");
 		debug(arguments);
 	});
-}
+}*/
 
 server.listen(port);
 server.on("error", onError);
