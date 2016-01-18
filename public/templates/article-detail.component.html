@@ -1,0 +1,24 @@
+<template [ngIf]="article">
+	<header class="intro-header" style="background-image: url('images/post-bg.jpg')">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+					<div class="post-heading">
+						<h1>{{article.title}}</h1>
+						<h2 class="subheading" *ngIf="article.subTitle">{{article.subTitle}}</h2>
+						<span class="meta">Posted by <a href="#">{{article._owner.username}}</a> on {{article.created | date:"yMMMMd"}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" [innerHTML]="article.content">
+				</div>
+			</div>
+		</div>
+	</article>
+</template>

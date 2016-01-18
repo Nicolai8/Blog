@@ -1,14 +1,27 @@
 var express = require("express");
 var router = express.Router();
+var UnitOfWork = require("../models/UnitOfWork");
 
 //get all articles
 router.get("/:searchQuery?", function (req, res, next) {
-	res.json("get" + req.params.searchQuery);
+	UnitOfWork.Article.getPage(req.params.searchQuery || "", 1, 10, function (err, articles) {
+		if (err) return next(err);
+
+		res.json(articles);
+	});
 });
 
 //get article by id
 router.get("/getById/:id", function (req, res, next) {
-	res.json("get" + req.params.id);
+	UnitOfWork.Article.findById(req.params.id)
+		.populate({
+			path: "_owner",
+			select: "username"
+		}).exec(function (err, article) {
+		if (err) return next(err);
+
+		res.json(article);
+	});
 });
 
 //save article
@@ -17,12 +30,12 @@ router.post("/", function (req, res, next) {
 });
 
 //remove article
-router.delete("/", function (req, res, next) {
+router.delete("/:id", function (req, res, next) {
 	res.json("delete");
 });
 
 //edi article
-router.put("/", function (req, res, next) {
+router.put("/:id", function (req, res, next) {
 	res.json("put");
 });
 

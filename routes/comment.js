@@ -7,12 +7,12 @@ router.post("/", function (req, res, next) {
 });
 
 //remove comment
-router.delete("/", function (req, res, next) {
+router.delete("/:id", function (req, res, next) {
 	res.json("delete");
 });
 
 //edit comment
-router.put("/", function (req, res, next) {
+router.put("/:id", function (req, res, next) {
 	res.json("put");
 });
 
