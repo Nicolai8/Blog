@@ -19,9 +19,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this._articleService.get("",
-            articles => this.articles = articles,
-            ()=> {
-            }
+            articles => this.articles = articles
         );
     }
 }

@@ -1,4 +1,3 @@
-//login or register
-module.exports = function (req, res, next) {
-	res.send("post");
-};
+var passport = require("../lib/passport");
+
+module.exports = passport.authenticate;

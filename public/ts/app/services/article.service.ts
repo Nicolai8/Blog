@@ -9,7 +9,7 @@ export class ArticleService {
     constructor(private _http:Http) {
     }
 
-    get(searchQuery, onSuccess, onFailure) {
+    get(searchQuery, onSuccess?, onFailure?) {
         let _get = this._http.get("/article/" + searchQuery);
         _get.map(res => res.json())
             .subscribe((articles)=> {
@@ -23,7 +23,7 @@ export class ArticleService {
             );
     }
 
-    getById(id:string, onSuccess, onFailure) {
+    getById(id:string, onSuccess?, onFailure?) {
         this._http.get("/article/getById/" + id)
             .map(res => res.json())
             .subscribe((article)=> {
@@ -37,7 +37,7 @@ export class ArticleService {
             );
     }
 
-    create(article:Article, onSuccess, onFailure) {
+    create(article:Article, onSuccess?, onFailure?) {
         this._http.post("/article", JSON.stringify(article))
             .map(res => res.json())
             .subscribe(onSuccess,
@@ -47,7 +47,7 @@ export class ArticleService {
                 });
     }
 
-    save(article:Article, onSuccess, onFailure) {
+    save(article:Article, onSuccess?, onFailure?) {
         this._http.put("/article/" + article._id, JSON.stringify(article))
             .map(res => res.json())
             .subscribe(onSuccess,
@@ -58,7 +58,7 @@ export class ArticleService {
             );
     }
 
-    remove(id:string, onSuccess, onFailure) {
+    remove(id:string, onSuccess?, onFailure?) {
         this._http.delete("/article/" + id)
             .map(res => res.json())
             .subscribe(onSuccess,

@@ -1,24 +1,33 @@
 import {Http, Headers} from "angular2/http";
 import {Injectable} from "angular2/core";
-import {Credentials} from "../models/credentials";
+import {User} from "../models/user";
 
 @Injectable()
 
 export class AuthService {
+    private _user:User;
+
     constructor(private _http:Http) {
     }
 
-    login(credentials:Credentials, onSuccess, onFailure) {
-        this._http.post("/login", JSON.stringify(credentials))
+    login(credentials:User, onSuccess?, onFailure?) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        this._http.post("/login", JSON.stringify(credentials),{
+                headers: headers
+            })
             .map(res => res.json())
-            .subscribe(onSuccess,
+            .subscribe(user => {
+                    this._user = user;
+                    onSuccess(user);
+                },
                 err => {
                     console.log(err);
                     onFailure && onFailure(err);
                 });
     }
 
-    logout(onSuccess, onFailure) {
+    logout(onSuccess, onFailure?) {
         this._http.post("/logout", "")
             .map(res => res.json())
             .subscribe(onSuccess,
@@ -27,5 +36,12 @@ export class AuthService {
                     onFailure && onFailure(err);
                 }
             );
+    }
+
+    getUser() {
+        if (!this._user) {
+            this._user = window["user"];
+        }
+        return this._user;
     }
 }

@@ -20,10 +20,7 @@ export class ArticleDetailComponent implements OnInit {
     ngOnInit() {
         let articleId = this._routeParams.get("id");
         this._articleService.getById(articleId,
-            article => this.article = article,
-            ()=> {
-                //404
-            }
+            article => this.article = article
         );
     }
 }
