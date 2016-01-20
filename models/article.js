@@ -7,8 +7,7 @@ var schema = new Schema({
 	content: {type: String, required: true},
 	rating: Number,
 	created: {type: Date, default: Date.now},
-	_owner: {type: Schema.ObjectId, ref: "User", required: true},
-	_comments: [{type: Schema.ObjectId, ref: "Comment"}]
+	_owner: {type: Schema.ObjectId, ref: "User", required: true}
 });
 
 schema.statics.getPage = function (searchQuery, pageIndex, pageSize, callback) {

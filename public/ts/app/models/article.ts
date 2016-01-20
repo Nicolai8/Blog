@@ -4,8 +4,8 @@ export interface Article {
     _id: string,
     title: string,
     content: string,
-    created: Date,
+    created: string,
     rating: number,
-    _owner: any,
-    _comments: Comment[]
+    comments: Comment[],
+    _owner: any
 }

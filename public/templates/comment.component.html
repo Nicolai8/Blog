@@ -1,0 +1,32 @@
+<template [ngIf]="comment">
+	<a class="pull-left" href="#">
+		<img class="media-object" src="http://placehold.it/64x64" alt="">
+	</a>
+	<div class="media-body">
+		<h4 class="media-heading">{{comment._owner.username}}
+			<small>{{comment.created | dateString: "yMMMMd at jm"}}</small>
+		</h4>
+		<template [ngIf]="!editMode">
+			{{comment.text}}
+		</template>
+		<div *ngIf="isAuthorized && editMode">
+			<form role="form">
+				<div class="form-group">
+					<textarea class="form-control" rows="3" [(ngModel)]="editComment.text"></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+				<button type="submit" class="btn btn-default" (click)="cancel()">Cancel</button>
+			</form>
+		</div>
+		<div *ngIf="isAuthorized && !editMode">
+			<div class="comment__actions" *ngIf="comment._owner._id==user._id">
+				<a class="comment__edit" (click)="edit(comment)">
+					<i class="glyphicon glyphicon-edit"></i> Edit Comment
+				</a>
+				<a class="comment__delete" (click)="remove(comment)">
+					<i class="glyphicon glyphicon-remove-circle"></i> Remove Comment
+				</a>
+			</div>
+		</div>
+	</div>
+</template>

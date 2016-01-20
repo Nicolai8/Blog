@@ -1,42 +1,21 @@
-import {Http} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {Comment} from "../models/comment";
+import {HttpService} from "./http.service";
 
 @Injectable()
-
 export class CommentService {
-    constructor(private _http:Http) {
+    constructor(private _httpService:HttpService) {
     }
 
-    create(comment:Comment, onSuccess, onFailure) {
-        this._http.post("/comment", JSON.stringify(comment))
-            .map(res => res.json())
-            .subscribe(onSuccess,
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                });
+    create(comment, onSuccess, onFailure?) {
+        this._httpService.post("/comment", comment, onSuccess, onFailure);
     }
 
-    save(comment:Comment, onSuccess, onFailure) {
-        this._http.put("/comment/" + comment._id, JSON.stringify(comment))
-            .map(res => res.json())
-            .subscribe(onSuccess,
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                }
-            );
+    save(comment:Comment, onSuccess, onFailure?) {
+        this._httpService.put("/comment/" + comment._id, {newComment: comment.text}, onSuccess, onFailure);
     }
 
-    remove(id:string, onSuccess, onFailure) {
-        this._http.delete("/comment/" + id)
-            .map(res => res.json())
-            .subscribe(onSuccess,
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                }
-            );
+    remove(id:string, onSuccess, onFailure?) {
+        this._httpService.delete("/comment/" + id, onSuccess, onFailure);
     }
 }

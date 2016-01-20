@@ -3,12 +3,13 @@ import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 import {HomeComponent} from "./home.component";
 import {ArticleDetailComponent} from "./article-detail.component";
 import {LoginComponent} from "./login.component";
+import {AuthService} from "../services/auth.service";
 
 @Component({
     selector: "my-app",
     templateUrl: "templates/app.component.html",
     directives: [ROUTER_DIRECTIVES, LoginComponent],
-    providers: []
+    providers: [AuthService]
 })
 
 @RouteConfig([

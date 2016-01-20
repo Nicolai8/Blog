@@ -2,7 +2,6 @@ var mongoose = require("../lib/mongoose");
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
-	title: {type: String, require: true},
 	text: {type: String, required: true},
 	created: {type: Date, default: Date.now},
 	_owner: {type: Schema.ObjectId, ref: "User", required: true},

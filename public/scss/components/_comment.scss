@@ -1,0 +1,30 @@
+.comment {
+  position: relative;
+
+  &__actions {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    & > * {
+      cursor: pointer;
+      font-size: 0;
+
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+
+  &__delete {
+    &:hover {
+      color: $btn-danger-bg;
+    }
+  }
+
+  &__edit {
+    &:hover {
+      color: $btn-info-bg;
+    }
+  }
+}

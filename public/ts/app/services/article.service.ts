@@ -1,71 +1,30 @@
-import {Http, Headers} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {Article} from "../models/article";
-import "rxjs/add/operator/map";
+import {HttpService} from "./http.service";
 
 @Injectable()
 
 export class ArticleService {
-    constructor(private _http:Http) {
+    constructor(private _httpService:HttpService) {
     }
 
-    get(searchQuery, onSuccess?, onFailure?) {
-        let _get = this._http.get("/article/" + searchQuery);
-        _get.map(res => res.json())
-            .subscribe((articles)=> {
-                    articles.forEach(article=> article.created = new Date(article.created));
-                    onSuccess(articles);
-                },
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                }
-            );
+    get(searchQuery:string, onSuccess?, onFailure?) {
+        this._httpService.get("/article/" + searchQuery, onSuccess, onFailure);
     }
 
     getById(id:string, onSuccess?, onFailure?) {
-        this._http.get("/article/getById/" + id)
-            .map(res => res.json())
-            .subscribe((article)=> {
-                    article.created = new Date(article.created);
-                    onSuccess(article);
-                },
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                }
-            );
+        this._httpService.get("/article/getById/" + id, onSuccess, onFailure);
     }
 
     create(article:Article, onSuccess?, onFailure?) {
-        this._http.post("/article", JSON.stringify(article))
-            .map(res => res.json())
-            .subscribe(onSuccess,
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                });
+        this._httpService.post("/article", article, onSuccess, onFailure);
     }
 
     save(article:Article, onSuccess?, onFailure?) {
-        this._http.put("/article/" + article._id, JSON.stringify(article))
-            .map(res => res.json())
-            .subscribe(onSuccess,
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                }
-            );
+        this._httpService.put("/article/" + article._id, article, onSuccess, onFailure);
     }
 
     remove(id:string, onSuccess?, onFailure?) {
-        this._http.delete("/article/" + id)
-            .map(res => res.json())
-            .subscribe(onSuccess,
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                }
-            );
+        this._httpService.delete("/article/" + id, onSuccess, onFailure);
     }
 }

@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+var checkAuth = require("../middleware/checkAuth");
 
 //get profile by id
 router.get("/:id", function (req, res, next) {
@@ -7,17 +8,17 @@ router.get("/:id", function (req, res, next) {
 });
 
 //get my profile
-router.get("/", function (req, res, next) {
-	res.json("my profile");
+router.get("/", checkAuth, function (req, res, next) {
+	res.json(req.user);
 });
 
 //save profile
-router.put("/", function (req, res, next) {
+router.put("/", checkAuth, function (req, res, next) {
 	res.json("put");
 });
 
 //remove profile
-router.delete("/", function (req, res, next) {
+router.delete("/", checkAuth, function (req, res, next) {
 	res.json("delete");
 });
 

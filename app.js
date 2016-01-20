@@ -14,6 +14,7 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
+app.use(require("./middleware/sendHttpError"));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(logger("dev"));
@@ -26,8 +27,6 @@ app.use(session({
 	secret: config.get("session:secret"),
 	cookie: config.get("session:cookie")
 }));
-
-app.use(require("./middleware/sendHttpError"));
 
 var passport = require("passport");
 //configure passport

@@ -1,47 +1,54 @@
-import {Http, Headers} from "angular2/http";
-import {Injectable} from "angular2/core";
 import {User} from "../models/user";
+import {HttpService} from "./http.service";
+import {Injectable} from "angular2/core";
+import {Headers} from "angular2/http";
+import {Subject} from "rxjs/Subject";
+import {ReplaySubject} from "rxjs/Rx";
 
 @Injectable()
-
 export class AuthService {
-    private _user:User;
+    private _user:ReplaySubject<User> = new ReplaySubject();
+    private _isAuthorized:ReplaySubject<boolean>;
 
-    constructor(private _http:Http) {
+    constructor(private _httpService:HttpService) {
+        let user = window["user"];
+        this._user = new ReplaySubject();
+        this._user.next(user);
+
+        this._isAuthorized = new ReplaySubject();
+        this._isAuthorized.next(!!user);
     }
 
     login(credentials:User, onSuccess?, onFailure?) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        this._http.post("/login", JSON.stringify(credentials),{
-                headers: headers
-            })
-            .map(res => res.json())
-            .subscribe(user => {
-                    this._user = user;
-                    onSuccess(user);
-                },
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                });
+        var self = this;
+        this._httpService.post(
+            "/login",
+            credentials,
+            user => {
+                self._user.next(user);
+                self._isAuthorized.next(true);
+                onSuccess(user);
+            },
+            onFailure);
     }
 
     logout(onSuccess, onFailure?) {
-        this._http.post("/logout", "")
-            .map(res => res.json())
-            .subscribe(onSuccess,
-                err => {
-                    console.log(err);
-                    onFailure && onFailure(err);
-                }
-            );
+        var self = this;
+        this._httpService.post("/logout", "",
+            ()=> {
+                self._user.next(new User(""));
+                self._isAuthorized.next(false);
+                onSuccess();
+            }, onFailure, new Headers({
+                "x-requested-with": "XMLHttpRequest"
+            }));
     }
 
-    getUser() {
-        if (!this._user) {
-            this._user = window["user"];
-        }
+    get user() {
         return this._user;
+    }
+
+    get isAuthorized() {
+        return this._isAuthorized;
     }
 }

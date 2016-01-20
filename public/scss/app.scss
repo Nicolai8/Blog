@@ -1,4 +1,7 @@
+@import "variables";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap",
 "clean-blog";
 
-@import "components/login";
+//Components
+@import "components/login",
+"components/comment";

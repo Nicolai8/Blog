@@ -9,40 +9,30 @@ import {AppComponent} from "./app.component";
 
 @Component({
     selector: ".login-form",
-    templateUrl: "templates/login.component.html",
-    providers: [AuthService]
+    templateUrl: "templates/login.component.html"
 })
 
 export class LoginComponent implements OnInit {
-    public user:User;
-    public isLoggedIn:boolean = false;
+    public isAuthorized:boolean;
 
     constructor(private _authService:AuthService) {
     }
 
     ngOnInit() {
-        this.user = this._authService.getUser();
-        this.isLoggedIn = typeof this.user != "undefined";
-        this.user = this.user || new User("");
+        this._authService.isAuthorized.subscribe(isAuthorized => this.isAuthorized = isAuthorized);
     }
 
-    login(e) {
-        var self = this;
+    login(e, user) {
         this._authService.login(
-            this.user,
-            user => {
-                self.user = user;
-                self.isLoggedIn = true;
+            user,
+            () => {
                 jQuery(e.target).closest("li.dropdown").removeClass("dropdown open");
             }
         );
     }
 
     logout(e) {
-        var self = this;
         this._authService.logout(()=> {
-            self.user = new User("");
-            self.isLoggedIn = false;
             jQuery(e.target).closest("li").addClass("dropdown");
         });
     }

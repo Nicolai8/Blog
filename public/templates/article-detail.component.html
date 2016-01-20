@@ -6,7 +6,7 @@
 					<div class="post-heading">
 						<h1>{{article.title}}</h1>
 						<h2 class="subheading" *ngIf="article.subTitle">{{article.subTitle}}</h2>
-						<span class="meta">Posted by <a href="#">{{article._owner.username}}</a> on {{article.created | date:"yMMMMd"}}</span>
+						<span class="meta">Posted by <a href="#">{{article._owner.username}}</a> on {{article.created | dateString:"yMMMMd"}}</span>
 					</div>
 				</div>
 			</div>
@@ -18,6 +18,25 @@
 			<div class="row">
 				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" [innerHTML]="article.content">
 				</div>
+			</div>
+
+			<hr>
+			<div class="comments" *ngIf="article.comments?.length>0">
+				<template ngFor #comment [ngForOf]="article.comments">
+					<div class="media comment" [comment]="comment"
+						 (removed)="onCommentRemoved(comment)"></div>
+				</template>
+				<hr>
+			</div>
+
+			<div class="well" *ngIf="isAuthorized">
+				<h4>Leave a Comment:</h4>
+				<form role="form">
+					<div class="form-group">
+						<textarea class="form-control" rows="3" [(ngModel)]="newComment"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary" (click)="addComment(newComment)">Submit</button>
+				</form>
 			</div>
 		</div>
 	</article>
