@@ -6,6 +6,9 @@ import {DatePipe} from "angular2/common";
 })
 export class DateStringPipe extends DatePipe {
     transform(value:any, args:any[]):string {
+        if (!value) {
+            return "";
+        }
         return super.transform(Date.parse(value), args);
     }
 }

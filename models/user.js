@@ -19,6 +19,11 @@ var schema = new Schema({
 		type: String,
 		require: true
 	},
+	email: String,
+	birthday: Date,
+	gender: String,
+	about: String,
+	pictureUrl: String,
 	created: {
 		type: Date,
 		default: Date.now
@@ -27,6 +32,10 @@ var schema = new Schema({
 
 schema.methods.encryptPassword = function (password) {
 	return crypto.createHmac("sha1", this.salt).update(password).digest("hex");
+};
+
+schema.statics.getProfile = function (id, callback) {
+	this.findById(id).select("-hashedPassword -salt").exec(callback);
 };
 
 schema.virtual("password")

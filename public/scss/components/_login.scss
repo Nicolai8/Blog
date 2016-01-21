@@ -1,51 +1,61 @@
-#login-dp {
-  min-width: 250px;
-  padding: 14px 14px 0;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, .7);
+.login-form {
+  #login-dp {
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, .7);
 
-  .social-buttons {
-    margin: 12px 0
-  }
-
-  .social-buttons a {
-    width: 49%;
-    padding: 10px 0;
-  }
-
-  .form-group {
-    margin-bottom: 10px;
-  }
-
-  .btn-fb {
-    color: #fff;
-    background-color: #3b5998;
-
-    &:hover {
-      background-color: #496ebc
+    .social-buttons {
+      margin: 12px 0
     }
-  }
 
-  .btn-tw {
-    color: #fff;
-    background-color: #55acee;
-
-    &:hover {
-      background-color: #59b5fa;
+    .social-buttons a {
+      width: 49%;
+      padding: 10px 0;
     }
-  }
 
-  #login-nav .btn {
-    padding: 10px 15px;
-  }
+    .form-group {
+      margin-bottom: 10px;
+    }
 
-  @media(max-width: 768px) {
-    background-color: inherit;
-    color: #fff;
+    .btn-fb {
+      color: #fff;
+      background-color: #3b5998;
 
-    .bottom {
+      &:hover {
+        background-color: #496ebc
+      }
+    }
+
+    .btn-tw {
+      color: #fff;
+      background-color: #55acee;
+
+      &:hover {
+        background-color: #59b5fa;
+      }
+    }
+
+    #login-nav .btn {
+      padding: 10px 15px;
+    }
+
+    @media(max-width: 768px) {
       background-color: inherit;
-      border-top: 0 none;
+      color: #fff;
+
+      .bottom {
+        background-color: inherit;
+        border-top: 0 none;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    background-color: rgba(255, 255, 255, .7);
+
+    li a:not(.btn) {
+      color: #333 !important;
     }
   }
 }

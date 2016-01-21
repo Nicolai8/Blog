@@ -32,13 +32,13 @@ export class AuthService {
             onFailure);
     }
 
-    logout(onSuccess, onFailure?) {
+    logout(onSuccess?, onFailure?) {
         var self = this;
         this._httpService.post("/logout", "",
             ()=> {
                 self._user.next(new User(""));
                 self._isAuthorized.next(false);
-                onSuccess();
+                onSuccess && onSuccess();
             }, onFailure, new Headers({
                 "x-requested-with": "XMLHttpRequest"
             }));

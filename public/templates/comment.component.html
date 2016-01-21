@@ -3,7 +3,7 @@
 		<img class="media-object" src="http://placehold.it/64x64" alt="">
 	</a>
 	<div class="media-body">
-		<h4 class="media-heading">{{comment._owner.username}}
+		<h4 class="media-heading"><a [routerLink]="['Profile',{id: comment._owner._id}]">{{comment._owner.username}}</a>
 			<small>{{comment.created | dateString: "yMMMMd at jm"}}</small>
 		</h4>
 		<template [ngIf]="!editMode">

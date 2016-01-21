@@ -6,7 +6,7 @@
 					<div class="post-heading">
 						<h1>{{article.title}}</h1>
 						<h2 class="subheading" *ngIf="article.subTitle">{{article.subTitle}}</h2>
-						<span class="meta">Posted by <a href="#">{{article._owner.username}}</a> on {{article.created | dateString:"yMMMMd"}}</span>
+						<span class="meta">Posted by <a [routerLink]="['Profile', {id:article._owner._id}]">{{article._owner.username}}</a> on {{article.created | dateString:"yMMMMd"}}</span>
 					</div>
 				</div>
 			</div>

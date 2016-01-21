@@ -20,7 +20,8 @@
 						   placeholder="Password" required [(ngModel)]="user.password">
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-block" (click)="login($event, user)">Sign in</button>
+					<button type="submit" class="btn btn-primary btn-block" (click)="login($event, user)">Sign in
+					</button>
 				</div>
 				<div class="checkbox">
 					<label>
@@ -31,6 +32,24 @@
 		</li>
 	</ul>
 </template>
-<template [ngIf]="isAuthorized">
-	<a href="#" (click)="logout($event)">Log Out</a>
+<template [ngIf]="isAuthorized && user">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>{{user.username}}</b> <span class="caret"></span></a>
+	<ul class="dropdown-menu">
+		<li>
+			<a [routerLink]="['Profile',{id: user._id}]">
+				<i class="glyphicon glyphicon-user"></i>
+				Edit Profile
+			</a>
+		</li>
+		<li>
+			<a href="#">My Articles</a>
+		</li>
+		<li role="separator" class="divider"></li>
+		<li>
+			<a href="#" (click)="logout($event)">
+				<i class="glyphicon glyphicon-log-out"></i>
+				Log Out
+			</a>
+		</li>
+	</ul>
 </template>

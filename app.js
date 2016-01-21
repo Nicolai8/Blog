@@ -17,7 +17,11 @@ app.set("view engine", "jade");
 app.use(require("./middleware/sendHttpError"));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
-app.use(logger("dev"));
+app.use(logger("dev", {
+	skip: function (req, res) {
+		return res.statusCode < 400
+	}
+}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());

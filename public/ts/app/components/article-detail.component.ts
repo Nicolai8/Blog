@@ -1,20 +1,19 @@
 import {Component, OnInit} from "angular2/core";
 import {Article} from "../models/article";
 import {ArticleService} from "../services/article.service";
-import {RouteParams} from "angular2/router";
+import {RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {CommentComponent} from "./comment.component";
 import {Comment} from "../models/comment";
 import {CommentService} from "../services/comment.service";
 import {AuthService} from "../services/auth.service";
 import {DateStringPipe} from "../pipes/date-string.pipe";
 import {User} from "../models/user";
-import {ChangeDetectionStrategy} from "angular2/core";
 
 @Component({
     selector: "article-detail",
     templateUrl: "templates/article-detail.component.html",
     providers: [ArticleService, CommentService],
-    directives: [CommentComponent],
+    directives: [CommentComponent, ROUTER_DIRECTIVES],
     pipes: [DateStringPipe],
     inputs: ["article"]
 })
