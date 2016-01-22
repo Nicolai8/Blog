@@ -7,6 +7,7 @@ import {AuthService} from "../services/auth.service";
 import {ProfileComponent} from "./profile.component";
 import {UserArticlesComponent} from "./user-articles.component";
 import {CreateArticleComponent} from "./create-article.component";
+import {cleanBlog} from "../../plugins/clean-blog";
 
 @Component({
     selector: "my-app",
@@ -31,5 +32,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this._authService.isAuthorized.subscribe(isAuthorized=>this.isAuthorized = isAuthorized);
+        cleanBlog();
     }
 }
