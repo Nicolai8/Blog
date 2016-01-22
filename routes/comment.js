@@ -1,9 +1,13 @@
 var express = require("express");
 var router = express.Router();
+var async = require("async");
+var HttpError = require("../errors").HttpError;
 var Comment = require("../models/UnitOfWork").Comment;
 
 //save comment
 router.post("/", function (req, res, next) {
+	if(!req.body.newComment) return next(new HttpError(400));
+
 	var comment = new Comment({
 		text: req.body.newComment,
 		_owner: req.user.get("_id"),
@@ -32,15 +36,24 @@ router.delete("/:id", function (req, res, next) {
 
 //edit comment
 router.put("/:id", function (req, res, next) {
-	Comment.findByIdAndUpdate(
-		req.params.id, {
-			text: req.body.newComment
+	async.waterfall([
+		function (cb) {
+			Comment.findById(req.params.id, cb);
 		},
-		function (err, comment) {
-			if (err) return next(err);
+		function (comment, cb) {
+			if (comment == null) return cb(new HttpError(404));
+			if (comment.get("_owner").toString() != req.user.get("_id").toString()) return cb(new HttpError(401));
 
-			res.json(comment);
-		});
+			Comment.findByIdAndUpdate(
+				req.params.id, {
+					text: req.body.newComment
+				}, cb);
+		}
+	], function (err, comment) {
+		if (err) return next(err);
+
+		res.json(comment);
+	});
 });
 
 module.exports = router;

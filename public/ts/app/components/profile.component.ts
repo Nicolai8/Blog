@@ -1,17 +1,16 @@
-import {Component} from "angular2/core";
-import {OnInit} from "angular2/core";
+import {Component, OnInit} from "angular2/core";
+import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {Profile} from "../models/profile";
-import {ProfileService} from "../services/profile.service";
-import {RouteParams} from "angular2/router";
-import {AuthService} from "../services/auth.service";
-import {Router} from "angular2/router";
 import {User} from "../models/user";
+import {ProfileService} from "../services/profile.service";
+import {AuthService} from "../services/auth.service";
 import {DateStringPipe} from "../pipes/date-string.pipe";
 
 @Component({
     selector: ".profile",
     templateUrl: "templates/profile.component.html",
     providers: [ProfileService],
+    directives: [ROUTER_DIRECTIVES],
     pipes: [DateStringPipe]
 })
 

@@ -24,4 +24,17 @@ schema.statics.getPage = function (searchQuery, pageIndex, pageSize, callback) {
 		.exec(callback);
 };
 
+schema.statics.getPageByUserId = function (userId, pageIndex, pageSize, callback) {
+	var skip = (pageIndex - 1 ) * pageSize;
+
+	this.find({"_owner": userId})
+		.populate({
+			path: "_owner",
+			select: "username"
+		})
+		.sort("-created")
+		.skip(skip).limit(pageSize)
+		.exec(callback);
+};
+
 exports.Article = mongoose.model("Article", schema);

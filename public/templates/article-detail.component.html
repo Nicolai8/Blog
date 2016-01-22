@@ -8,6 +8,18 @@
 						<h2 class="subheading" *ngIf="article.subTitle">{{article.subTitle}}</h2>
 						<span class="meta">Posted by <a [routerLink]="['Profile', {id:article._owner._id}]">{{article._owner.username}}</a> on {{article.created | dateString:"yMMMMd"}}</span>
 					</div>
+					<h3 *ngIf="canEdit" class="pull-left">
+						<a class="article__edit-link" data-toggle="modal"
+						   data-target="#editArticleModal" (click)="edit()">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a>
+					</h3>
+
+					<h3 *ngIf="canEdit" class="pull-right">
+						<a class="article__remove-link" (click)="remove()">
+							<i class="glyphicon glyphicon-remove"></i>
+						</a>
+					</h3>
 				</div>
 			</div>
 		</div>
@@ -40,4 +52,39 @@
 			</div>
 		</div>
 	</article>
+
+	<div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="editArticleModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+							aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="editArticleModalLabel">Edit Article</h4>
+				</div>
+				<div class="modal-body">
+					<form *ngIf="editArticle">
+						<div class="form-group">
+							<label for="input1">Title</label>
+							<input type="text" class="form-control" id="input1" placeholder="Title"
+								   [(ngModel)]="editArticle.title">
+						</div>
+						<div class="form-group">
+							<label for="input2">Subtitle</label>
+							<input type="text" class="form-control" id="input2" placeholder="Subtitle"
+								   [(ngModel)]="editArticle.subtitle">
+						</div>
+						<div class="form-group">
+							<label for="input3">Content</label>
+							<textarea class="form-control" id="input3" placeholder="Content" rows="10"
+									  [(ngModel)]="editArticle.content"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" (click)="save($event)">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>

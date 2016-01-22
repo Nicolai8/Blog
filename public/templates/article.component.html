@@ -1,0 +1,18 @@
+<template [ngIf]="article">
+	<div class="post-preview">
+		<a [routerLink]="['ArticleDetail', {id: article._id}]">
+			<h2 class="post-title">
+				{{article.title}}
+			</h2>
+			<h3 class="post-subtitle" *ngIf="article.subTitle">
+				{{article.subTitle}}
+			</h3>
+		</a>
+		<p class="post-meta">Posted
+			<template [ngIf]="!userId">by <a [routerLink]="['Profile',{id: article._owner._id}]">{{article._owner.username}}</a>
+			</template>
+			on {{article.created | dateString:"yMMMMd"}}
+		</p>
+	</div>
+	<hr>
+</template>

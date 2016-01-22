@@ -1,0 +1,23 @@
+.article {
+  &__edit {
+    &-link {
+      cursor: pointer;
+      color: white;
+
+      &:hover, &:focus {
+        color: $brand-primary;
+      }
+    }
+  }
+
+  &__remove {
+    &-link {
+      cursor: pointer;
+      color: white;
+
+      &:hover, &:focus {
+        color: $brand-danger;
+      }
+    }
+  }
+}

@@ -19,6 +19,9 @@
 					<a [routerLink]="['Home']">Home</a>
 				</li>
 
+				<li *ngIf="isAuthorized">
+					<a [routerLink]="['CreateArticle']">Create New Article</a>
+				</li>
 				<li class="dropdown login-form"></li>
 			</ul>
 		</div>

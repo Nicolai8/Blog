@@ -1,0 +1,35 @@
+<header class="intro-header" style="background-image: url('images/post-bg.jpg')">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div class="post-heading">
+					<h1>Create New Article</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="container">
+	<form>
+		<div class="form-group">
+			<label for="input1">Title</label>
+			<input type="text" class="form-control" id="input1" placeholder="Title"
+				   [(ngModel)]="newArticle.title">
+		</div>
+		<div class="form-group">
+			<label for="input2">Subtitle</label>
+			<input type="text" class="form-control" id="input2" placeholder="Subtitle"
+				   [(ngModel)]="newArticle.subtitle">
+		</div>
+		<div class="form-group">
+			<label for="input3">Content</label>
+							<textarea class="form-control" id="input3" placeholder="Content" rows="10"
+									  [(ngModel)]="newArticle.content"></textarea>
+		</div>
+
+		<hr>
+
+		<button type="button" class="btn btn-primary pull-right" (click)="save(newArticle)">Save</button>
+	</form>
+</div>

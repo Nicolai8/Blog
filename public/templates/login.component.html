@@ -42,7 +42,10 @@
 			</a>
 		</li>
 		<li>
-			<a href="#">My Articles</a>
+			<a [routerLink]="['UserArticles',{id: user._id}]">
+				<i class="glyphicon glyphicon-book"></i>
+				My Articles
+			</a>
 		</li>
 		<li role="separator" class="divider"></li>
 		<li>

@@ -18,13 +18,13 @@
 
   &__delete {
     &:hover {
-      color: $btn-danger-bg;
+      color: $brand-danger;
     }
   }
 
   &__edit {
     &:hover {
-      color: $btn-info-bg;
+      color: $brand-primary;
     }
   }
 }
