@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var async = require("async");
+var mongoose = require("../lib/mongoose");
 var HttpError = require("../errors").HttpError;
 var UnitOfWork = require("../models/UnitOfWork");
 var checkAuth = require("../middleware/checkAuth");
@@ -26,6 +27,18 @@ router.get("/getById/:id", function (req, res, next) {
 		},
 		comments: function (cb) {
 			UnitOfWork.Comment.find({"_article": req.params.id}).populate("_owner", "username").exec(cb);
+		},
+		rating: function (cb) {
+			UnitOfWork.Rating.aggregate({
+					$match: {"_article": mongoose.Types.ObjectId(req.params.id)}
+				}, {
+					$group: {
+						_id: null,
+						"ratingValue": {$avg: "$rating"},
+						"ratingCount": {$sum: 1}
+					}
+				}
+			).exec(cb);
 		}
 	}, function (err, results) {
 		if (err) return next(err);
@@ -33,10 +46,25 @@ router.get("/getById/:id", function (req, res, next) {
 
 		var article = results.article.toObject();
 		article.comments = results.comments;
+		article.rating = {
+			value: results.rating[0].ratingValue,
+			count: results.rating[0].ratingCount
+		};
 
 		res.json(article);
 	});
 
+});
+
+router.get("/getRatingForUser/:id", checkAuth, function (req, res, next) {
+	UnitOfWork.Rating.findOne({
+		_article: req.params.id,
+		_owner: req.user.get("_id")
+	}, function (err, rating) {
+		if (err) return next(err);
+
+		res.json(rating.get("rating"));
+	});
 });
 
 //get all articles
@@ -86,6 +114,9 @@ router.delete("/:id", checkAuth, function (req, res, next) {
 				},
 				function (callback) {
 					UnitOfWork.Comment.remove({"_article": req.params.id}, callback);
+				},
+				function (callback) {
+					UnitOfWork.Rating.remove({"_article": req.params.id}, callback);
 				}
 			], cb);
 		}
@@ -118,6 +149,54 @@ router.put("/:id", checkAuth, function (req, res, next) {
 
 		res.json(article);
 	});
+});
+
+router.put("/:id/rating", checkAuth, function (req, res, next) {
+	async.waterfall([
+		function (cb) {
+			UnitOfWork.Rating.findOne({
+				$and: [
+					{"_owner": req.user.get("_id")},
+					{"_article": req.params.id}
+				]
+			}, cb);
+		},
+		function (rating, cb) {
+			if (rating != null) {
+				return UnitOfWork.Rating.findByIdAndUpdate(rating.get("_id"), {rating: req.body.rating}, function (err) {
+					cb(err);
+				});
+			}
+			var newRating = new UnitOfWork.Rating({
+				"_owner": req.user.get("_id"),
+				"_article": req.params.id,
+				"rating": req.body.rating
+			});
+			newRating.save(function (err) {
+				cb(err);
+			});
+		},
+		function (cb) {
+			UnitOfWork.Rating.aggregate({
+					$match: {"_article": mongoose.Types.ObjectId(req.params.id)}
+				}, {
+					$group: {
+						_id: null,
+						"ratingValue": {$avg: "$rating"},
+						"ratingCount": {$sum: 1}
+					}
+				}
+			).exec(cb);
+		}
+	], function (err, newRating) {
+		if (err) return next(err);
+
+		res.json({
+			value: newRating[0].ratingValue,
+			count: newRating[0].ratingCount
+		});
+	});
+
 });
 
 module.exports = router;

@@ -6,7 +6,6 @@ var schema = new Schema({
 	title: {type: String, require: true},
 	subtitle: String,
 	content: {type: String, required: true},
-	rating: Number,
 	created: {type: Date, default: Date.now},
 	_owner: {type: Schema.ObjectId, ref: "User", required: true}
 });

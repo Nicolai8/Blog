@@ -42,13 +42,11 @@ function createArticles(callback) {
 			{
 				title: "Article 1",
 				content: "<h1>Article 1</h1>",
-				rating: 4.5,
 				_owner: user._id
 			},
 			{
 				title: "Article 2",
 				content: "<h2>Article 2</h2>",
-				rating: 5,
 				_owner: user._id
 			}
 		];

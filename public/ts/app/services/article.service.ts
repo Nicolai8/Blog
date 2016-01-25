@@ -20,12 +20,20 @@ export class ArticleService {
         this._httpService.get("/article/getByUserId/" + id, onSuccess, onFailure);
     }
 
+    getRatingForUser(id:string, onSuccess, onFailure?) {
+        this._httpService.get("/article/getRatingForUser/" + id, onSuccess, onFailure);
+    }
+
     create(article:Article, onSuccess?, onFailure?) {
         this._httpService.post("/article", article, onSuccess, onFailure);
     }
 
     save(article:Article, onSuccess?, onFailure?) {
         this._httpService.put("/article/" + article._id, article, onSuccess, onFailure);
+    }
+
+    setRating(article:Article, newRating, onSuccess?, onFailure?) {
+        this._httpService.put("/article/" + article._id + "/rating", newRating, onSuccess, onFailure);
     }
 
     remove(id:string, onSuccess?, onFailure?) {

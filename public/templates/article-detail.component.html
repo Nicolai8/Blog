@@ -7,19 +7,32 @@
 						<h1>{{article.title}}</h1>
 						<h2 class="subheading" *ngIf="article.subTitle">{{article.subTitle}}</h2>
 						<span class="meta">Posted by <a [routerLink]="['Profile', {id:article._owner._id}]">{{article._owner.username}}</a> on {{article.created | dateString:"yMMMMd"}}</span>
+						<br>
+						<p>Article rating {{article.rating?.value}}/10, with {{article.rating?.count}} votes.</p>
+						<input *ngIf="isAuthorized" type="number" class="rating"
+							   data-min="1"
+							   data-max="10"
+							   data-stars="10"
+							   data-show-clear="false"
+							   data-size="xs"
+							   data-show-caption="false"
+							   [article]="article"
+							   (changed)="onRatingChanged($event)"/>
 					</div>
-					<h3 *ngIf="canEdit" class="pull-left">
-						<a class="article__edit-link" data-toggle="modal"
-						   data-target="#editArticleModal" (click)="edit()">
-							<i class="glyphicon glyphicon-edit"></i>
-						</a>
-					</h3>
+					<div class="row">
+						<h3 *ngIf="canEdit" class="pull-left">
+							<a class="article__edit-link" data-toggle="modal"
+							   data-target="#editArticleModal" (click)="edit()">
+								<i class="glyphicon glyphicon-edit"></i>
+							</a>
+						</h3>
 
-					<h3 *ngIf="canEdit" class="pull-right">
-						<a class="article__remove-link" (click)="remove()">
-							<i class="glyphicon glyphicon-remove"></i>
-						</a>
-					</h3>
+						<h3 *ngIf="canEdit" class="pull-right">
+							<a class="article__remove-link" (click)="remove()">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</h3>
+					</div>
 				</div>
 			</div>
 		</div>

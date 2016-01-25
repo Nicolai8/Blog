@@ -1,10 +1,9 @@
-import {Component, Input, Output, EventEmitter} from "angular2/core";
+import {Component, Input, Output, EventEmitter, OnInit} from "angular2/core";
 import {ROUTER_DIRECTIVES} from "angular2/router";
 import {AuthService} from "../services/auth.service";
 import {User} from "../models/user";
 import {DateStringPipe} from "../pipes/date-string.pipe";
 import {CommentService} from "../services/comment.service";
-import {OnInit} from "angular2/core";
 
 @Component({
     selector: ".comment",

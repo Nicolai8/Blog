@@ -1,32 +1,43 @@
-.navbar .navbar-form[role="search"] {
-  .input-group {
-    padding: 8px 0;
-
-    input {
-      width: 0;
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      transition: padding 0.25s ease, width 0.25s ease;
-
-      &:focus {
-        width: 100%;
-        padding: 6px 12px;
-      }
-    }
-
-    &:hover {
-      input {
-        width: 100%;
-        padding: 6px 12px;
-      }
+.navbar {
+  &.is-fixed {
+    .navbar-form .input-group .btn {
+      color: #777;
     }
   }
 
-  .btn {
-    padding: 7px;
-    border: 0;
-    background: transparent;
-    color: white;
+  .navbar-form {
+    margin: 0;
+    padding-top: 8px;
+
+    .input-group {
+      padding: 8px 0;
+
+      input {
+        width: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        transition: padding 0.25s ease, width 0.25s ease;
+
+        &:focus {
+          width: 100%;
+          padding: 6px 12px;
+        }
+      }
+
+      &:hover {
+        input {
+          width: 100%;
+          padding: 6px 12px;
+        }
+      }
+    }
+
+    .btn {
+      padding: 7px;
+      border: 0;
+      background: transparent;
+      color: white;
+    }
   }
 }

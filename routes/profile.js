@@ -58,6 +58,11 @@ router.delete("/", checkAuth, function (req, res, next) {
 			}, cb);
 		},
 		function (cb) {
+			UnitOfWork.Rating.remove({
+				"_owner": userId
+			}, cb);
+		},
+		function (cb) {
 			UnitOfWork.User.findByIdAndRemove(userId, cb);
 		}
 	], function (err) {

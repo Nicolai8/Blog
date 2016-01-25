@@ -8,12 +8,13 @@ import {Comment} from "../models/comment";
 import {User} from "../models/user";
 import {CommentComponent} from "./comment.component";
 import {DateStringPipe} from "../pipes/date-string.pipe";
+import {RatingDirective} from "../directives/rating.directive";
 
 @Component({
     selector: "article-detail",
     templateUrl: "templates/article-detail.component.html",
     providers: [ArticleService, CommentService],
-    directives: [CommentComponent, ROUTER_DIRECTIVES],
+    directives: [CommentComponent, ROUTER_DIRECTIVES, RatingDirective],
     pipes: [DateStringPipe],
     inputs: ["article"]
 })
@@ -81,5 +82,9 @@ export class ArticleDetailComponent implements OnInit {
         this.article.comments = this.article.comments.filter((item)=> {
             return item._id != comment._id;
         });
+    }
+
+    onRatingChanged(newArticleRating) {
+        this.article.rating = newArticleRating;
     }
 }
