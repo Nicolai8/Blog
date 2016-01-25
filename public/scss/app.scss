@@ -3,7 +3,9 @@
 "clean-blog";
 
 //Components
-@import "components/login",
+@import
+"components/header",
+"components/login",
 "components/comment",
 "components/profile",
 "components/article";

@@ -1,0 +1,31 @@
+<header class="intro-header" style="background-image: url('images/home-bg.jpg')">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+				<div class="site-heading">
+					<h1>Search</h1>
+					<hr class="small">
+					<h3 *ngIf="searchString">by {{searchString}}</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<template ngFor #article [ngForOf]="articles">
+				<article [article]="article"></article>
+			</template>
+
+			<!-- Pager -->
+			<ul class="pager">
+				<li class="next">
+					<a href="#">Older Posts &rarr;</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
