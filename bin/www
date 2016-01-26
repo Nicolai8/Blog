@@ -53,3 +53,5 @@ function onListening() {
 		: "port " + addr.port;
 	debug("Listening on " + bind);
 }
+
+app.set("io", require("../socketio")(server));

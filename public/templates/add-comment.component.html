@@ -1,0 +1,12 @@
+<div class="well" *ngIf="isAuthorized">
+	<h4>Leave a Comment:</h4>
+	<form role="form">
+		<div class="form-group">
+			<textarea class="form-control" rows="3" [(ngModel)]="newComment"></textarea>
+		</div>
+		<button type="submit" class="btn btn-primary" (click)="add()">Submit</button>
+	</form>
+</div>
+<p *ngIf="!isAuthorized">
+	Please sing in to leave a comment.
+</p>

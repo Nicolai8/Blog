@@ -1,0 +1,17 @@
+<div class="comment-actions list-group" *ngIf="deleted+updated+added>0">
+	<button type="button" class="list-group-item list-group-item-success" *ngIf="added>0" (click)="updateComments()">
+		<span class="badge">{{added}}</span>
+		<i class="glyphicon glyphicon-refresh"></i>
+		Added
+	</button>
+	<button type="button" class="list-group-item list-group-item-warning" *ngIf="updated>0" (click)="updateComments()">
+		<span class="badge">{{updated}}</span>
+		<i class="glyphicon glyphicon-refresh"></i>
+		Updated
+	</button>
+	<button type="button" class="list-group-item list-group-item-danger" *ngIf="deleted>0" (click)="updateComments()">
+		<span class="badge">{{deleted}}</span>
+		<i class="glyphicon glyphicon-refresh"></i>
+		Deleted
+	</button>
+</div>

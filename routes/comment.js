@@ -3,10 +3,22 @@ var router = express.Router();
 var async = require("async");
 var HttpError = require("../errors").HttpError;
 var Comment = require("../models/UnitOfWork").Comment;
+var checkAuth = require("../middleware/checkAuth");
+
+//get comments by Article Id
+router.get("/getByArticleId/:id", function (req, res, next) {
+	Comment.find({
+		_article: req.params.id
+	}).populate("_owner", "username").exec(function (err, comments) {
+		if (err) return next(err);
+
+		res.json(comments);
+	});
+});
 
 //save comment
-router.post("/", function (req, res, next) {
-	if(!req.body.newComment) return next(new HttpError(400));
+router.post("/", checkAuth, function (req, res, next) {
+	if (!req.body.newComment) return next(new HttpError(400));
 
 	var comment = new Comment({
 		text: req.body.newComment,
@@ -21,21 +33,24 @@ router.post("/", function (req, res, next) {
 			_id: req.user.get("_id"),
 			username: req.user.get("username")
 		};
+
+		emitSocketIOEvent(req, "commentAdded");
 		res.json(comment);
 	});
 });
 
 //remove comment
-router.delete("/:id", function (req, res, next) {
+router.delete("/:id", checkAuth, function (req, res, next) {
 	Comment.findByIdAndRemove(req.params.id, function (err) {
 		if (err) return next(err);
 
+		emitSocketIOEvent(req, "commentDeleted");
 		res.json("ok");
 	});
 });
 
 //edit comment
-router.put("/:id", function (req, res, next) {
+router.put("/:id", checkAuth, function (req, res, next) {
 	async.waterfall([
 		function (cb) {
 			Comment.findById(req.params.id, cb);
@@ -52,8 +67,20 @@ router.put("/:id", function (req, res, next) {
 	], function (err, comment) {
 		if (err) return next(err);
 
+		emitSocketIOEvent(req, "commentUpdated");
 		res.json(comment);
 	});
 });
+
+function emitSocketIOEvent(req, eventName) {
+	var clients = req.app.get("io").sockets.connected;
+
+	Object.keys(clients).forEach(function (key) {
+		var client = clients[key];
+		if (client.client.id != (req.body.socketId || req.query.socketId)) {
+			client.emit(eventName, "");
+		}
+	});
+}
 
 module.exports = router;

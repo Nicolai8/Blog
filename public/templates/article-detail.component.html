@@ -41,10 +41,14 @@
 	<article>
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" [innerHTML]="article.content">
+				<div class="col-lg-10 col-lg-offset-1" [innerHTML]="article.content">
 				</div>
 			</div>
 
+			<hr>
+			<socket-io-comments (onUpdate)="getComments($event)"></socket-io-comments>
+
+			<h3>Comments:</h3>
 			<hr>
 			<div class="comments" *ngIf="article.comments?.length>0">
 				<template ngFor #comment [ngForOf]="article.comments">
@@ -53,16 +57,9 @@
 				</template>
 				<hr>
 			</div>
+			<p *ngIf="!article.comments||article.comments.length==0">There is no comments yet.</p>
 
-			<div class="well" *ngIf="isAuthorized">
-				<h4>Leave a Comment:</h4>
-				<form role="form">
-					<div class="form-group">
-						<textarea class="form-control" rows="3" [(ngModel)]="newComment"></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary" (click)="addComment(newComment)">Submit</button>
-				</form>
-			</div>
+			<add-comment [articleId]="article._id" (onAdded)="onCommentAdded($event)"></add-comment>
 		</div>
 	</article>
 

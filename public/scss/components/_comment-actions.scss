@@ -1,0 +1,19 @@
+.comment-actions {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+
+  .list-group-item {
+    border-radius: 0;
+
+    & > .badge {
+      margin-left: 5px;
+    }
+  }
+
+  @media screen and (max-width: $screen-xs-max) {
+    display: none;
+  }
+}

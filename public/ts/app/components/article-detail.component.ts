@@ -3,18 +3,21 @@ import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
 import {ArticleService} from "../services/article.service";
 import {CommentService} from "../services/comment.service";
 import {AuthService} from "../services/auth.service";
+import {SocketIOService} from "../services/socket-io.service";
 import {Article} from "../models/article";
 import {Comment} from "../models/comment";
 import {User} from "../models/user";
 import {CommentComponent} from "./comment.component";
+import {SocketIOCommentsComponent} from "./socket-io-comments.component";
 import {DateStringPipe} from "../pipes/date-string.pipe";
 import {RatingDirective} from "../directives/rating.directive";
+import {AddCommentComponent} from "./add-comment.component";
 
 @Component({
     selector: "article-detail",
     templateUrl: "templates/article-detail.component.html",
-    providers: [ArticleService, CommentService],
-    directives: [CommentComponent, ROUTER_DIRECTIVES, RatingDirective],
+    providers: [ArticleService, CommentService, SocketIOService],
+    directives: [CommentComponent, ROUTER_DIRECTIVES, RatingDirective, SocketIOCommentsComponent, AddCommentComponent],
     pipes: [DateStringPipe],
     inputs: ["article"]
 })
@@ -67,15 +70,8 @@ export class ArticleDetailComponent implements OnInit {
         }
     }
 
-    addComment(newComment) {
-        this._commentService.create(
-            {
-                newComment: newComment,
-                articleId: this.article._id
-            },
-            (comment)=> {
-                this.article.comments.push(comment);
-            });
+    onCommentAdded(comment) {
+        this.article.comments.push(comment);
     }
 
     onCommentRemoved(comment) {
@@ -86,5 +82,13 @@ export class ArticleDetailComponent implements OnInit {
 
     onRatingChanged(newArticleRating) {
         this.article.rating = newArticleRating;
+    }
+
+    getComments(callback) {
+        this._commentService.getByArticleId(this.article._id,
+            (comments)=> {
+                this.article.comments = comments;
+                callback();
+            });
     }
 }
