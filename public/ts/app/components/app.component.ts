@@ -7,8 +7,9 @@ import {AuthService} from "../services/auth.service";
 import {ProfileComponent} from "./profile.component";
 import {UserArticlesComponent} from "./user-articles.component";
 import {CreateArticleComponent} from "./create-article.component";
-import {cleanBlog} from "../../plugins/clean-blog";
 import {SearchComponent} from "./search.component";
+import {ErrorComponent} from "./error.component";
+import {cleanBlog} from "../../plugins/clean-blog";
 
 @Component({
     selector: "my-app",
@@ -23,7 +24,9 @@ import {SearchComponent} from "./search.component";
     {path: "/profile/:id/articles", name: "UserArticles", component: UserArticlesComponent},
     {path: "/profile/:id", name: "Profile", component: ProfileComponent},
     {path: "/create-article", name: "CreateArticle", component: CreateArticleComponent},
-    {path: "/search/:searchString", name: "Search", component: SearchComponent}
+    {path: "/search/:searchString", name: "Search", component: SearchComponent},
+    {path: "/error/:status", name: "Error", component: ErrorComponent},
+    {path: "/:url", name: "NotFound", component: ErrorComponent}
 ])
 
 export class AppComponent implements OnInit {

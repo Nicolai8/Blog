@@ -2,6 +2,7 @@ import {Http, Headers} from "angular2/http";
 import {Injectable} from "angular2/core";
 import {User} from "../models/user";
 import "rxjs/add/operator/map";
+import {Router} from "angular2/router";
 
 @Injectable()
 export class HttpService {
@@ -10,7 +11,7 @@ export class HttpService {
         "x-requested-with": "XMLHttpRequest"
     });
 
-    constructor(private _http:Http) {
+    constructor(private _http:Http, private _router:Router) {
     }
 
     post(url:string, data:any, onSuccess, onFailure?, headers?:Headers) {
@@ -20,7 +21,7 @@ export class HttpService {
             .map(res => res.json())
             .subscribe(
                 onSuccess,
-                err => HttpService.errorHandler(err, onFailure)
+                err => this._errorHandler(err, onFailure)
             );
     }
 
@@ -31,7 +32,7 @@ export class HttpService {
             .map(res => res.json())
             .subscribe(
                 onSuccess,
-                err => HttpService.errorHandler(err, onFailure)
+                err => this._errorHandler(err, onFailure)
             );
     }
 
@@ -42,7 +43,7 @@ export class HttpService {
             .map(res => res.json())
             .subscribe(
                 onSuccess,
-                err => HttpService.errorHandler(err, onFailure)
+                err => this._errorHandler(err, onFailure)
             );
     }
 
@@ -52,12 +53,12 @@ export class HttpService {
             })
             .subscribe(
                 onSuccess,
-                err => HttpService.errorHandler(err, onFailure)
+                err => this._errorHandler(err, onFailure)
             );
     }
 
-    private static errorHandler(err, onFailure?) {
-        console.log(err);
+    private _errorHandler(err, onFailure?) {
+        this._router.navigate(["Error", err.json()]);
         onFailure && onFailure(err);
     }
 }
