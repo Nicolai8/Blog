@@ -18,5 +18,17 @@
 	  "httpOnly": true,
 	  "maxAge": null
 	}
+  },
+  "oauth": {
+	"facebook": {
+	  "clientId": "",
+	  "clientSecret":"",
+	  "callbackUrl": "http://localhost:1414/login/facebook/callback"
+	},
+	"vk": {
+	  "clientId": "",
+	  "clientSecret":"",
+	  "callbackUrl": "http://localhost:1414/login/vk/callback"
+	}
   }
 }
