@@ -58,7 +58,10 @@ export class HttpService {
     }
 
     private _errorHandler(err, onFailure?) {
-        this._router.navigate(["Error", err.json()]);
+        var error = err.json();
+        error.status = error.status || 500;
+        error.message = error.message || "Unhandled Error";
+        this._router.navigate(["Error", error]);
         onFailure && onFailure(err);
     }
 }
