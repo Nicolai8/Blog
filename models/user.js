@@ -19,6 +19,10 @@ var schema = new Schema({
 		type: String,
 		require: true
 	},
+	oauth: {
+		facebook: "",
+		vk: ""
+	},
 	email: String,
 	birthday: Date,
 	gender: String,

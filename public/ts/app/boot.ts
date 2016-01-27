@@ -7,6 +7,15 @@ import {HttpService} from "./services/http.service";
 import {ExceptionHandler} from "angular2/core";
 import {CustomExceptionHandler} from "./exception-handler";
 
+//remove #_=_
+if (window.location.hash && window.location.hash === "#_=_") {
+    if (window.history) {
+        window.history.pushState("", document.title, window.location.pathname);
+    } else {
+        window.location.hash = "";
+    }
+}
+
 bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,

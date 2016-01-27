@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  if user
+  if typeof user == "object"
     script
       | var user = !{JSON.stringify(user || "")};
 

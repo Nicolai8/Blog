@@ -4,10 +4,15 @@ var checkAuth = require("../middleware/checkAuth");
 
 module.exports = function (app) {
 	router.get("/", function (req, res, next) {
-		res.render("index", {user: req.user});
+		res.render("index", {
+			user: !req.user || {
+				_id: req.user.get("_id"),
+				username: req.user.get("username")
+			}
+		});
 	});
 
-	router.post("/login", require("./auth"));
+	app.use("/login", require("./auth"));
 	router.post("/logout", checkAuth, require("./logout"));
 	app.use(router);
 	app.use("/article", require("./article"));

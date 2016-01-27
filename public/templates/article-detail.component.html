@@ -8,7 +8,8 @@
 						<h2 class="subheading" *ngIf="article.subTitle">{{article.subTitle}}</h2>
 						<span class="meta">Posted by <a [routerLink]="['Profile', {id:article._owner._id}]">{{article._owner.username}}</a> on {{article.created | dateString:"yMMMMd"}}</span>
 						<br>
-						<p>Article rating {{article.rating?.value | number: '1.0-1'}}/10, with {{article.rating?.count}} votes.</p>
+						<p *ngIf="article.rating">Article rating {{article.rating?.value | number: '1.0-1'}}/10, with {{article.rating?.count}} votes.</p>
+
 						<input *ngIf="isAuthorized" type="number" class="rating"
 							   data-min="1"
 							   data-max="10"

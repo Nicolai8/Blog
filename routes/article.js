@@ -46,10 +46,12 @@ router.get("/getById/:id", function (req, res, next) {
 
 		var article = results.article.toObject();
 		article.comments = results.comments;
-		article.rating = {
-			value: results.rating[0].ratingValue,
-			count: results.rating[0].ratingCount
-		};
+		if (results.rating && results.rating.length > 0) {
+			article.rating = {
+				value: results.rating[0].ratingValue,
+				count: results.rating[0].ratingCount
+			};
+		}
 
 		res.json(article);
 	});
@@ -63,7 +65,7 @@ router.get("/getRatingForUser/:id", checkAuth, function (req, res, next) {
 	}, function (err, rating) {
 		if (err) return next(err);
 
-		res.json(rating.get("rating"));
+		res.json(rating ? rating.get("rating") : 0);
 	});
 });
 
