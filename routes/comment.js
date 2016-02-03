@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
 var async = require("async");
-var HttpError = require("../errors").HttpError;
-var Comment = require("../models/UnitOfWork").Comment;
-var checkAuth = require("../middleware/checkAuth");
+var HttpError = require("errors").HttpError;
+var Comment = require("models/UnitOfWork").Comment;
+var checkAuth = require("middleware/checkAuth");
 
 //get comments by Article Id
 router.get("/getByArticleId/:id", function (req, res, next) {

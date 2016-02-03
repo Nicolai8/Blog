@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
 var async = require("async");
-var mongoose = require("../lib/mongoose");
-var HttpError = require("../errors").HttpError;
-var UnitOfWork = require("../models/UnitOfWork");
-var checkAuth = require("../middleware/checkAuth");
+var mongoose = require("lib/mongoose");
+var HttpError = require("errors").HttpError;
+var UnitOfWork = require("models/UnitOfWork");
+var checkAuth = require("middleware/checkAuth");
 
 //get all articles
 router.get("/:searchQuery?", function (req, res, next) {

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-var app = require("../app");
+var app = require("app");
 var debug = require("debug")("Blog:server");
 var http = require("http");
 var config = require("config");
 
-var port = config.get("port");
+var port = process.env.PORT || config.get("port");
 app.set("port", port);
 
 var server = http.createServer(app);
@@ -54,4 +54,4 @@ function onListening() {
 	debug("Listening on " + bind);
 }
 
-app.set("io", require("../socketio")(server));
+app.set("io", require("socketio")(server));

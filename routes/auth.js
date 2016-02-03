@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var passport = require("../lib/passport");
+var passport = require("lib/passport");
 
 router.post("/", passport.authenticate);
 

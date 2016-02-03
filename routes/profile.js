@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
 var async = require("async");
-var UnitOfWork = require("../models/UnitOfWork");
-var HttpError = require("../errors").HttpError;
-var checkAuth = require("../middleware/checkAuth");
+var UnitOfWork = require("models/UnitOfWork");
+var HttpError = require("errors").HttpError;
+var checkAuth = require("middleware/checkAuth");
 
 //get profile by id
 router.get("/:id", function (req, res, next) {
