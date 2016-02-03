@@ -1,5 +1,4 @@
 /// <reference path="../../definitions/jquery.d.ts"/>
-import {Promise,PromiseWrapper} from "angular2/src/facade/async";
 import {Directive, ElementRef, DynamicComponentLoader} from "angular2/core";
 import {Router, RouterOutlet, ComponentInstruction} from "angular2/router";
 
@@ -8,7 +7,7 @@ import {Router, RouterOutlet, ComponentInstruction} from "angular2/router";
 })
 export class CustomRouterOutletDirective extends RouterOutlet {
     private $loader = jQuery(".loader");
-    private $body =jQuery(document.body);
+    private $body = jQuery(document.body);
 
     constructor(_elementRef:ElementRef,
                 _loader:DynamicComponentLoader,

@@ -30,5 +30,6 @@
 	  "clientSecret":"",
 	  "callbackUrl": "http://localhost:1414/login/vk/callback"
 	}
-  }
+  },
+  "pageSize": 10
 }

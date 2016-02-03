@@ -34,6 +34,7 @@ schema.statics.getPage = function (searchQuery, pageIndex, pageSize, callback) {
 					select: "username"
 				})
 				.sort("-created")
+				.select("-content")
 				.skip(skip).limit(pageSize)
 				.exec(cb);
 		}

@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var async = require("async");
+var config = require("config");
 var mongoose = require("lib/mongoose");
 var HttpError = require("errors").HttpError;
 var UnitOfWork = require("models/UnitOfWork");
@@ -8,7 +9,10 @@ var checkAuth = require("middleware/checkAuth");
 
 //get all articles
 router.get("/:searchQuery?", function (req, res, next) {
-	UnitOfWork.Article.getPage(req.params.searchQuery || "", 1, 10, function (err, articles) {
+	UnitOfWork.Article.getPage(
+		req.params.searchQuery || "",
+		req.params.page || 1,
+		req.params.pageSize || config.get("pageSize"), function (err, articles) {
 		if (err) return next(err);
 
 		res.json(articles);
