@@ -4,6 +4,7 @@ import {HomeComponent} from "./home.component";
 import {ArticleDetailComponent} from "./article-detail.component";
 import {LoginComponent} from "./login.component";
 import {AuthService} from "../services/auth.service";
+import {ArticleService} from "../services/article.service";
 import {ProfileComponent} from "./profile.component";
 import {UserArticlesComponent} from "./user-articles.component";
 import {CreateArticleComponent} from "./create-article.component";
@@ -16,7 +17,7 @@ import {CustomRouterOutletDirective} from "../directives/router-outlet.directive
     selector: "my-app",
     templateUrl: "templates/app.component.html",
     directives: [CustomRouterOutletDirective, RouterLink, LoginComponent],
-    providers: [AuthService]
+    providers: [AuthService, ArticleService]
 })
 
 @RouteConfig([

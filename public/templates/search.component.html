@@ -19,13 +19,8 @@
 			<template ngFor #article [ngForOf]="articles">
 				<article [article]="article"></article>
 			</template>
-
 			<!-- Pager -->
-			<ul class="pager">
-				<li class="next">
-					<a href="#">Older Posts &rarr;</a>
-				</li>
-			</ul>
+			<load-more (onLoad)="getNextPage($event)"></load-more>
 		</div>
 	</div>
 </div>
