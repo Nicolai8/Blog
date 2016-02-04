@@ -5,7 +5,6 @@ import {ArticleService} from "../services/article.service";
 import {AuthService} from "../services/auth.service";
 import {OnDestroy} from "angular2/core";
 
-@Component({})
 @Directive({
     selector: "input.rating",
 })

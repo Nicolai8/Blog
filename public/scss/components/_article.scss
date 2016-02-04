@@ -23,7 +23,7 @@
 }
 
 article:last-of-type {
-  hr {
+  & > hr {
     display: none;
   }
 }

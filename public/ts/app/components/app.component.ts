@@ -12,11 +12,12 @@ import {SearchComponent} from "./search.component";
 import {ErrorComponent} from "./error.component";
 import {cleanBlog} from "../../plugins/clean-blog";
 import {CustomRouterOutletDirective} from "../directives/router-outlet.directive";
+import {SubmitOnDirective} from "../directives/submit-on.directive";
 
 @Component({
     selector: "my-app",
     templateUrl: "templates/app.component.html",
-    directives: [CustomRouterOutletDirective, RouterLink, LoginComponent],
+    directives: [CustomRouterOutletDirective, RouterLink, LoginComponent, SubmitOnDirective],
     providers: [AuthService, ArticleService]
 })
 

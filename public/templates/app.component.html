@@ -27,11 +27,14 @@
 			<form class="navbar-form navbar-right" role="search">
 				<div class="input-group">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button" (click)="search(searchString)">
+						<button class="btn btn-default" type="button" (click)="search(searchString)" id="globalSearchButton">
 							<i class="glyphicon glyphicon-search"></i>
 						</button>
 					  </span>
-					<input type="text" [(ngModel)]="searchString" class="form-control" placeholder="search for..."/>
+					<input type="text" [(ngModel)]="searchString" class="form-control" placeholder="search for..."
+						   [submitOn]="'ctrl+enter'"
+						   [submitOnRef]="'#globalSearchButton'"
+					/>
 				</div>
 			</form>
 		</div>
