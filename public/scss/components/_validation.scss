@@ -1,0 +1,16 @@
+.form-group {
+  &.has-success,
+  &.has-error {
+    input,
+    textarea,
+    select {
+      &.ng-invalid {
+        border-left: 5px solid $brand-danger;
+      }
+
+      &.ng-valid {
+        border-left: 5px solid $brand-success;
+      }
+    }
+  }
+}

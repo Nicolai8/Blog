@@ -1,3 +1,5 @@
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
 $brand-primary: #337ab7;
-
+$state-success-text: $brand-success;
+$state-danger-text: $brand-danger;
 $z-index-loader: 1001;

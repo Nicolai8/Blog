@@ -10,12 +10,6 @@ import {Article} from "../models/article";
 })
 
 export class CreateArticleComponent {
-    public newArticle = {
-        title: "",
-        subtitle: "",
-        content: ""
-    };
-
     constructor(private _articleService:ArticleService,
                 private _router:Router) {
     }

@@ -45,24 +45,29 @@
 							</div>
 						</template>
 						<template [ngIf]="editMode && canEdit">
-							<form role="form">
+							<form role="form" [ngFormModel]="editProfileForm">
 								<div class="row">
 									<div class="col-md-6">
-										<div class="form-group">
-											<label for="input1">Email address</label>
+										<div class="form-group"
+											 [ngClass]="{'has-success':!editProfileForm.pristine && !email.errors,
+										'has-error':!editProfileForm.pristine && email.errors}">
+											<label for="input1" class="control-label">Email address</label>
 											<input type="email" class="form-control" id="input1" placeholder="Email"
-												   [(ngModel)]="editProfile.email">
+												   ngControl="email" #email="ngForm"
+												   aria-describedby="helpBlock1">
+											<span *ngIf="email.errors?.email" class="help-block" id="helpBlock1">
+												Please enter valid email
+											</span>
 										</div>
 										<div class="form-group">
-											<label for="input2">Birth day</label>
-											<input type="text" class="form-control" id="input2"
-												   placeholder="Birth day"
-												   [(ngModel)]="editProfile.birthday">
+											<label for="input2" class="control-label">Birth day</label>
+											<input type="text" class="form-control" id="input2" placeholder="Birth day"
+												   ngControl="birthday">
 										</div>
 										<div class="form-group">
-											<label for="input3">Gender</label>
+											<label for="input3" class="control-label">Gender</label>
 											<select id="input3" class="form-control"
-													[(ngModel)]="editProfile.gender">
+													ngControl="gender">
 												<option value="">Select Gender</option>
 												<option value="female">female</option>
 												<option value="male">male</option>
@@ -71,10 +76,22 @@
 										</div>
 									</div>
 									<div class="col-md-6">
-										<label for="input4">About</label>
+										<label for="input4" class="control-label">About</label>
 											<textarea id="input4" class="form-control" rows="5" placeholder="About"
-													  [(ngModel)]="editProfile.about"></textarea>
+													  ngControl="about"></textarea>
 									</div>
+								</div>
+
+								<div class="pull-right">
+									<button type="submit" class="btn btn-default" (click)="cancel()"
+											*ngIf="editMode">
+										Cancel
+									</button>
+
+									<button type="submit" class="btn btn-primary" (click)="save()" *ngIf="editMode"
+											[disabled]="!editProfileForm.valid || editProfileForm.pristine">
+										Save
+									</button>
 								</div>
 							</form>
 						</template>
@@ -90,15 +107,6 @@
 
 							<button class="btn btn-default" (click)="edit()" *ngIf="!editMode"><i
 									class="glyphicon glyphicon-pencil"></i> Edit
-							</button>
-
-							<button type="submit" class="btn btn-default" (click)="cancel()"
-									*ngIf="editMode">
-								Cancel
-							</button>
-
-							<button type="submit" class="btn btn-primary" (click)="save()" *ngIf="editMode">
-								Save
 							</button>
 						</div>
 					</div>

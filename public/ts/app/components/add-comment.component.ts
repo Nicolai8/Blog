@@ -3,6 +3,7 @@ import {AuthService} from "../services/auth.service";
 import {User} from "../models/user";
 import {CommentService} from "../services/comment.service";
 import {SubmitOnDirective} from "../directives/submit-on.directive";
+import {Control} from "angular2/common";
 
 @Component({
     selector: "add-comment",
@@ -12,7 +13,6 @@ import {SubmitOnDirective} from "../directives/submit-on.directive";
 
 export class AddCommentComponent implements OnInit {
     public isAuthorized:boolean;
-    public newComment:string;
     @Input() articleId:string;
     @Output() onAdded = new EventEmitter<Comment>();
 
@@ -23,15 +23,15 @@ export class AddCommentComponent implements OnInit {
         this._authService.isAuthorized.subscribe(isAuthorized => this.isAuthorized = isAuthorized);
     }
 
-    add() {
+    add(newComment) {
         this._commentService.create(
             {
-                newComment: this.newComment,
+                newComment: newComment.value,
                 articleId: this.articleId
             },
             (comment)=> {
                 this.onAdded.emit(comment);
-                this.newComment = "";
+                newComment.control.updateValue("");
             });
     }
 }

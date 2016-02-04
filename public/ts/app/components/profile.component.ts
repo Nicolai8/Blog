@@ -5,25 +5,28 @@ import {User} from "../models/user";
 import {ProfileService} from "../services/profile.service";
 import {AuthService} from "../services/auth.service";
 import {DateStringPipe} from "../pipes/date-string.pipe";
+import {FORM_DIRECTIVES, ControlGroup, FormBuilder} from "angular2/common";
+import {CustomValidators} from "../common/custom-validators";
 
 @Component({
     selector: ".profile",
     templateUrl: "templates/profile.component.html",
     providers: [ProfileService],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES],
     pipes: [DateStringPipe]
 })
 
 export class ProfileComponent implements OnInit {
     public profile:Profile;
-    public editProfile:Profile;
+    public editProfileForm:ControlGroup;
     public editMode:boolean = false;
     public canEdit:boolean = false;
 
     constructor(private _authService:AuthService,
                 private _profileService:ProfileService,
                 private _router:Router,
-                private _routeParams:RouteParams) {
+                private _routeParams:RouteParams,
+                private _formBuilder:FormBuilder) {
     }
 
     ngOnInit() {
@@ -33,7 +36,13 @@ export class ProfileComponent implements OnInit {
     }
 
     edit() {
-        this.editProfile = Object.assign({}, this.profile);
+        this.editProfileForm = this._formBuilder.group({
+            email: [this.profile.email, CustomValidators.email],
+            birthday: this.profile.birthday,
+            gender: this.profile.gender,
+            about: this.profile.about,
+        });
+
         this.editMode = true;
     }
 
@@ -42,10 +51,11 @@ export class ProfileComponent implements OnInit {
     }
 
     save() {
-        this._profileService.save(this.editProfile,
+        let editProfile = jQuery.extend({}, this.profile, this.editProfileForm.value);
+        this._profileService.save(editProfile,
             ()=> {
                 this.editMode = false;
-                this.profile = this.editProfile;
+                this.profile = editProfile;
             });
     }
 
