@@ -1,3 +1,4 @@
+import {Promise, PromiseWrapper} from "angular2/src/facade/promise";
 import {Directive, ElementRef, DynamicComponentLoader} from "angular2/core";
 import {Router, RouterOutlet, ComponentInstruction} from "angular2/router";
 
@@ -23,8 +24,14 @@ export class CustomRouterOutletDirective extends RouterOutlet {
     }
 
     deactivate(nextInstruction:ComponentInstruction) {
+        var completer = PromiseWrapper.completer();
+        let promise = completer.promise;
         this.$body.addClass("loading");
-        this.$loader.show();
-        return super.deactivate(nextInstruction);
+        this.$loader.fadeIn(() => {
+            super.deactivate(nextInstruction).then((args)=> {
+                completer.resolve(args);
+            });
+        });
+        return <Promise<any>>promise;
     }
 }
