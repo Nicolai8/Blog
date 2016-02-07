@@ -21,5 +21,5 @@ bootstrap(AppComponent, [
     HTTP_PROVIDERS,
     provide(LocationStrategy, {useClass: HashLocationStrategy}),
     HttpService,
-    // provide(ExceptionHandler, {useClass: CustomExceptionHandler})
+    provide(ExceptionHandler, {useClass: CustomExceptionHandler})
 ]);
