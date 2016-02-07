@@ -13,4 +13,12 @@
       }
     }
   }
+
+  &.has-error {
+    border-bottom: 1px solid $brand-danger;
+  }
+
+  &.has-success {
+    border-bottom: 1px solid $brand-success;
+  }
 }

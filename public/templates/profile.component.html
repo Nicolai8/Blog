@@ -48,39 +48,52 @@
 							<form role="form" [ngFormModel]="editProfileForm">
 								<div class="row">
 									<div class="col-md-6">
-										<div class="form-group"
-											 [ngClass]="{'has-success':!editProfileForm.pristine && !email.errors,
+										<div class="control-group">
+											<div class="form-group floating-label-form-group"
+												 [ngClass]="{'has-success':!editProfileForm.pristine && !email.errors,
 										'has-error':!editProfileForm.pristine && email.errors}">
-											<label for="input1" class="control-label">Email address</label>
-											<input type="email" class="form-control" id="input1" placeholder="Email"
-												   ngControl="email" #email="ngForm"
-												   aria-describedby="helpBlock1">
+												<label for="input1" class="control-label">Email address</label>
+												<input type="email" class="form-control" id="input1" placeholder="Email"
+													   ngControl="email" #email="ngForm"
+													   aria-describedby="helpBlock1">
 											<span *ngIf="email.errors?.email" class="help-block" id="helpBlock1">
 												Please enter valid email
 											</span>
+											</div>
 										</div>
-										<div class="form-group">
-											<label for="input2" class="control-label">Birth day</label>
-											<input type="text" class="form-control" id="input2" placeholder="Birth day"
-												   ngControl="birthday">
+										<div class="control-group">
+											<div class="form-group floating-label-form-group">
+												<label for="input2" class="control-label">Birth day</label>
+												<input type="text" class="form-control" id="input2"
+													   placeholder="Birth day"
+													   ngControl="birthday">
+											</div>
 										</div>
-										<div class="form-group">
-											<label for="input3" class="control-label">Gender</label>
-											<select id="input3" class="form-control"
-													ngControl="gender">
-												<option value="">Select Gender</option>
-												<option value="female">female</option>
-												<option value="male">male</option>
-												<option value="superhero">superhero</option>
-											</select>
+										<div class="control-group">
+											<div class="form-group floating-label-form-group">
+												<label for="input3" class="control-label">Gender</label>
+												<select id="input3" class="form-control"
+														ngControl="gender">
+													<option value="">Select Gender</option>
+													<option value="female">female</option>
+													<option value="male">male</option>
+													<option value="superhero">superhero</option>
+												</select>
+											</div>
 										</div>
 									</div>
 									<div class="col-md-6">
-										<label for="input4" class="control-label">About</label>
-											<textarea id="input4" class="form-control" rows="5" placeholder="About"
-													  ngControl="about"></textarea>
+										<div class="control-group">
+											<div class="form-group floating-label-form-group">
+												<label for="input4" class="control-label">About</label>
+												<textarea id="input4" class="form-control" rows="5" placeholder="About"
+														  ngControl="about"></textarea>
+											</div>
+										</div>
 									</div>
 								</div>
+
+								<br>
 
 								<div class="pull-right">
 									<button type="submit" class="btn btn-default" (click)="cancel()"

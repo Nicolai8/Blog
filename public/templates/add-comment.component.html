@@ -1,13 +1,14 @@
-<div class="well" *ngIf="isAuthorized">
+<div class="comment__add" *ngIf="isAuthorized">
 	<h4>Leave a Comment:</h4>
 	<form role="form" #addCommentForm="ngForm">
-		<div class="form-group"
+		<div class="form-group floating-label-form-group"
 			 [ngClass]="{'has-success':!addCommentForm.pristine && !newComment.errors,
 			 'has-error':!addCommentForm.pristine && newComment.errors}">
 			<textarea class="form-control" rows="3"
 					  ngControl="newComment" #newComment="ngForm" required
 					  [submitOn]="'ctrl+enter'" [submitOnRef]="'#addCommentButton'"></textarea>
 		</div>
+		<br>
 		<button id="addCommentButton" type="submit" class="btn btn-primary" (click)="add(newComment)"
 				[disabled]="!addCommentForm.valid || addCommentForm.pristine">Submit
 		</button>

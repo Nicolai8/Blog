@@ -12,41 +12,47 @@
 
 <div class="container">
 	<form #newArticleForm="ngForm">
-		<div class="form-group"
-			 [ngClass]="{'has-success':!newArticleForm.pristine && !title.errors,
+		<div class="row control-group">
+			<div class="form-group floating-label-form-group"
+				 [ngClass]="{'has-success':!newArticleForm.pristine && !title.errors,
 			 'has-error':!newArticleForm.pristine && title.errors}">
-			<label for="input1" class="control-label">Title</label>
-			<input type="text" class="form-control" id="input1" placeholder="Title" required
-				   aria-describedby="helpBlock1"
-				   ngControl="title" #title="ngForm">
-			<span *ngIf="!title.pristine && title.errors?.required" class="help-block" id="helpBlock1">
+				<label for="input1" class="control-label">Title</label>
+				<input type="text" class="form-control" id="input1" placeholder="Title" required
+					   aria-describedby="helpBlock1"
+					   ngControl="title" #title="ngForm">
+			<span *ngIf="!newArticleForm.pristine && title.errors?.required" class="help-block" id="helpBlock1">
 				This field is required
 			</span>
+			</div>
 		</div>
-		<div class="form-group"
-			 [ngClass]="{'has-success':!newArticleForm.pristine && !subtitle.errors,
+		<div class="row control-group">
+			<div class="form-group floating-label-form-group"
+				 [ngClass]="{'has-success':!newArticleForm.pristine && !subtitle.errors,
 			 'has-error':!newArticleForm.pristine && subtitle.errors}">
-			<label for="input2" class="control-label">Subtitle</label>
-			<input type="text" class="form-control" id="input2" placeholder="Subtitle" required
-				   aria-describedby="helpBlock2"
-				   ngControl="subtitle" #subtitle="ngForm">
-			<span *ngIf="!subtitle.pristine && subtitle.errors?.required" class="help-block" id="helpBlock2">
+				<label for="input2" class="control-label">Subtitle</label>
+				<input type="text" class="form-control" id="input2" placeholder="Subtitle" required
+					   aria-describedby="helpBlock2"
+					   ngControl="subtitle" #subtitle="ngForm">
+			<span *ngIf="!newArticleForm.pristine && subtitle.errors?.required" class="help-block" id="helpBlock2">
 				This field is required
 			</span>
+			</div>
 		</div>
-		<div class="form-group"
-			 [ngClass]="{'has-success':!newArticleForm.pristine && !content.errors,
+		<div class="row control-group">
+			<div class="form-group floating-label-form-group"
+				 [ngClass]="{'has-success':!newArticleForm.pristine && !content.errors,
 			 'has-error':!newArticleForm.pristine && content.errors}">
-			<label for="input3" class="control-label">Content</label>
+				<label for="input3" class="control-label">Content</label>
 			<textarea class="form-control" id="input3" placeholder="Content" rows="10" required
 					  aria-describedby="helpBlock3"
 					  ngControl="content" #content="ngForm"></textarea>
-			<span *ngIf="!content.pristine && content.errors?.required" class="help-block" id="helpBlock3">
+			<span *ngIf="!newArticleForm.pristine && content.errors?.required" class="help-block" id="helpBlock3">
 				This field is required
 			</span>
+			</div>
 		</div>
 
-		<hr>
+		<br/>
 
 		<button type="button" class="btn btn-primary pull-right" (click)="save(newArticleForm.value)"
 				[disabled]="!newArticleForm.valid || newArticleForm.pristine">Save

@@ -1,6 +1,11 @@
 .comment {
   position: relative;
 
+  &__add {
+    padding: 15px;
+    border: 1px solid #cecece;
+  }
+
   &__actions {
     position: absolute;
     right: 0;
