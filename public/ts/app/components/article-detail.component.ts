@@ -12,12 +12,13 @@ import {SocketIOCommentsComponent} from "./socket-io-comments.component";
 import {DateStringPipe} from "../pipes/date-string.pipe";
 import {RatingDirective} from "../directives/rating.directive";
 import {AddCommentComponent} from "./add-comment.component";
+import {EditArticleComponent} from "./edit-article.component";
 
 @Component({
     selector: "article-detail",
     templateUrl: "templates/article-detail.component.html",
     providers: [ArticleService, CommentService, SocketIOService],
-    directives: [CommentComponent, ROUTER_DIRECTIVES, RatingDirective, SocketIOCommentsComponent, AddCommentComponent],
+    directives: [CommentComponent, ROUTER_DIRECTIVES, RatingDirective, SocketIOCommentsComponent, AddCommentComponent, EditArticleComponent],
     pipes: [DateStringPipe],
     inputs: ["article"]
 })
@@ -51,18 +52,6 @@ export class ArticleDetailComponent implements OnInit {
         });
     }
 
-    edit() {
-        this.editArticle = Object.assign({}, this.article);
-    }
-
-    save(event) {
-        this._articleService.save(this.editArticle,
-            (article)=> {
-                this.article = this.editArticle;
-                jQuery(event.target).closest(".modal").modal("hide");
-            });
-    }
-
     remove() {
         if (confirm("Are you sure?")) {
             this._articleService.remove(this.article._id,
@@ -78,6 +67,10 @@ export class ArticleDetailComponent implements OnInit {
         this.article.comments = this.article.comments.filter((item)=> {
             return item._id != comment._id;
         });
+    }
+
+    onArticleUpdated(article) {
+        this.article = article;
     }
 
     onRatingChanged(newArticleRating) {

@@ -1,0 +1,73 @@
+<a class="article__edit-link" data-toggle="modal"
+   data-target="#editArticleModal" (click)="edit()">
+	<i class="glyphicon glyphicon-edit"></i>
+</a>
+
+<div class="modal fade" id="editArticleModal" tabindex="-1" role="dialog" aria-labelledby="editArticleModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="editArticleModalLabel">Edit Article</h4>
+			</div>
+			<div class="modal-body">
+				<form *ngIf="editArticle" #editArticleForm="ngForm">
+					<div class="control-group">
+						<div class="form-group floating-label-form-group"
+							 [ngClass]="{'has-success':!editArticleForm.pristine && !title.errors,
+							 			 'has-error':!editArticleForm.pristine && title.errors}">
+							<label for="input1">Title</label>
+							<input type="text" class="form-control" id="input1" placeholder="Title" required
+								   [(ngModel)]="editArticle.title" ngControl="title" #title="ngForm">
+							<span *ngIf="!editArticleForm.pristine && title.errors?.required" class="help-block"
+								  id="helpBlock1">
+								This field is required
+							</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="form-group floating-label-form-group"
+							 [ngClass]="{'has-success':!editArticleForm.pristine && !subtitle.errors,
+							 			 'has-error':!editArticleForm.pristine && subtitle.errors}">
+							<label for="input2">Subtitle</label>
+							<input type="text" class="form-control" id="input2" placeholder="Subtitle" required
+								   [(ngModel)]="editArticle.subtitle" ngControl="subtitle" #subtitle="ngForm">
+							<span *ngIf="!editArticleForm.pristine && subtitle.errors?.required" class="help-block"
+								  id="helpBlock2">
+								This field is required
+							</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="form-group floating-label-form-group"
+							 [ngClass]="{'has-success':!editArticleForm.pristine && !content.errors,
+							 			'has-error':!editArticleForm.pristine && content.errors}">
+							<label for="input3">Content</label>
+							<textarea class="form-control" id="input3" placeholder="Content" rows="10" required
+									  [(ngModel)]="editArticle.content" ngControl="content"
+									  #content="ngForm"></textarea>
+							<span *ngIf="!editArticleForm.pristine && content.errors?.required" class="help-block"
+								  id="helpBlock3">
+								This field is required
+							</span>
+						</div>
+					</div>
+
+					<br>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="pull-right">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" (click)="save($event)"
+										[disabled]="!editArticleForm.valid || editArticleForm.pristine">
+									Save
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
