@@ -5,31 +5,36 @@ html
     meta(http-equiv="X-UA-Compatible",content="IE=edge")
     meta(http-equiv="Cache-Control",content="private")
     meta(name="viewport",content="width=device-width, initial-scale=1")
-    script
-      | document.write("<base href='" + document.location + "' />");
+    script.
+      document.write("<base href=" + document.location + " />");
     title Blog
     link(rel="stylesheet", href="/css/app.css")
     link(href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css",rel="stylesheet",type="text/css")
     link(href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic",rel="stylesheet",type="text/css")
     link(href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800",rel="stylesheet",type="text/css")
 
-    body.loading
+    script(src="http://code.jquery.com/jquery-2.2.0.min.js")
+    script(src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js")
+    script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.16/system-polyfills.js")
+
+    script(src="/js/plugins/star-rating.min.js")
+    script(src="https://code.angularjs.org/2.0.0-beta.0/angular2-polyfills.min.js")
+    script(src="https://code.angularjs.org/tools/system.js")
+
+    script(src="https://code.angularjs.org/2.0.0-beta.0/angular2.min.js")
+    script(src="https://code.angularjs.org/2.0.0-beta.3/Rx.min.js")
+    script(src="https://code.angularjs.org/2.0.0-beta.3/router.min.js")
+    script(src="https://code.angularjs.org/2.0.0-beta.3/http.min.js")
+    script(src="https://cdn.socket.io/socket.io-1.3.7.js")
+
+    script(src="/js/config.js")
+    script.
+      System.import("js/app/boot").then(null, console.error.bind(console));
+
+  body.loading
     block content
 
     include footer
-
-    script(src="http://code.jquery.com/jquery-2.2.0.min.js")
-    script(src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js")
-    script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js",integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS",crossorigin="anonymous")
-    script(src="/js/plugins/star-rating.min.js")
-    script(src="/angular2/bundles/angular2-polyfills.min.js")
-    script(src="/systemjs/dist/system.js")
-    script(src="/rxjs/bundles/Rx.min.js")
-    script(src="/angular2/bundles/angular2.min.js")
-    script(src="/angular2/bundles/router.min.js")
-    script(src="/angular2/bundles/http.min.js")
-    script(src="https://cdn.socket.io/socket.io-1.3.7.js")
-
-    script
-      | System.defaultJSExtensions = true;
-      | System.import("js/app/boot").then(null, console.error.bind(console));

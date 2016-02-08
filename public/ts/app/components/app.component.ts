@@ -10,7 +10,7 @@ import {UserArticlesComponent} from "./user-articles.component";
 import {CreateArticleComponent} from "./create-article.component";
 import {SearchComponent} from "./search.component";
 import {ErrorComponent} from "./error.component";
-import {cleanBlog} from "../../plugins/clean-blog";
+import {cleanBlog} from "../plugins/clean-blog";
 import {CustomRouterOutletDirective} from "../directives/router-outlet.directive";
 import {SubmitOnDirective} from "../directives/submit-on.directive";
 

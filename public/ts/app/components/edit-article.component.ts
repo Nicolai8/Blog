@@ -26,7 +26,7 @@ export class EditArticleComponent {
             (article)=> {
                 this.article = this.editArticle;
                 this.updated.emit(this.article);
-                jQuery(event.target).closest(".modal").modal("hide");
+                $(event.target).closest(".modal").modal("hide");
             });
     }
 }

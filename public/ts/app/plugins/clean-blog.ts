@@ -6,7 +6,6 @@
 // Navigation Scripts to Show Header on Scroll-Up
 
 export function cleanBlog() {
-    let $ = jQuery;
     let MQL = 1170;
 
 //primary navigation slide-in effect

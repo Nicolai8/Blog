@@ -1,4 +1,4 @@
-import {Promise, PromiseWrapper} from "angular2/src/facade/promise";
+import {Promise, PromiseWrapper} from "angular2/src/facade/async";
 import {Directive, ElementRef, DynamicComponentLoader} from "angular2/core";
 import {Router, RouterOutlet, ComponentInstruction} from "angular2/router";
 
