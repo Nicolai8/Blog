@@ -8,7 +8,7 @@
     "start": "node ./bin/www",
     "startLocal": "concurrent \"_startDb.bat\" \"node ./bin/www\"",
     "startLocalDB": "_startDb.bat",
-    "startDevServer": "concurrent \"npm run tsc:w\" \"npm run server\" "
+    "startDevServer": "concurrent \"npm run tsc:w\" \"npm run start\" "
   },
   "dependencies": {
     "angular2": "2.0.0-beta.3",
@@ -42,5 +42,6 @@
   "devDependencies": {
     "concurrently": "^1.0.0",
     "typescript": "^1.7.5"
-  }
+  },
+  { "engines" : { "node" : "^5.4.0" } }
 }
