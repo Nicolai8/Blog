@@ -26,7 +26,6 @@ import {EditArticleComponent} from "./edit-article.component";
 export class ArticleDetailComponent implements OnInit {
     private _user:User;
     public article:Article;
-    public editArticle:Article;
     public isAuthorized:boolean;
     public canEdit:boolean = false;
 
@@ -48,7 +47,7 @@ export class ArticleDetailComponent implements OnInit {
         this._authService.isAuthorized.subscribe(isAuthorized => this.isAuthorized = isAuthorized);
         this._authService.user.subscribe(user => {
             this._user = user;
-            this.canEdit = this.article && user["_id"] == this.article._owner._id;
+            this.canEdit = this.article && user && user["_id"] == this.article._owner._id;
         });
     }
 
