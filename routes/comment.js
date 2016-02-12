@@ -1,7 +1,7 @@
 "use strict";
 var express = require("express");
 var router = express.Router();
-var async = require("async");
+var isCommentOwner = require("middleware/isOwner")("comment");
 var HttpError = require("errors").HttpError;
 var Comment = require("models/UnitOfWork").Comment;
 var checkAuth = require("middleware/checkAuth");
@@ -10,10 +10,12 @@ var checkAuth = require("middleware/checkAuth");
 router.get("/getByArticleId/:id", function (req, res, next) {
 	Comment.find({
 		_article: req.params.id
-	}).populate("_owner", "username").exec(function (err, comments) {
-		if (err) return next(err);
-
-		res.json(comments);
+	}).populate("_owner", "username")
+		.exec()
+		.then((comments)=> {
+			res.json(comments);
+		}).catch((err)=> {
+		next(err);
 	});
 });
 
@@ -26,50 +28,43 @@ router.post("/", checkAuth, function (req, res, next) {
 		_owner: req.user.get("_id"),
 		_article: req.body.articleId
 	});
-	comment.save(function (err, comment) {
-		if (err) return next(err);
 
-		comment = comment.toObject();
-		comment._owner = {
-			_id: req.user.get("_id"),
-			username: req.user.get("username")
-		};
+	comment.save()
+		.then((comment)=> {
+			comment = comment.toObject();
+			comment._owner = {
+				_id: req.user.get("_id"),
+				username: req.user.get("username")
+			};
 
-		emitSocketIOEvent(req, "commentAdded");
-		res.json(comment);
+			emitSocketIOEvent(req, "commentAdded");
+			res.json(comment);
+		}).catch((err)=> {
+		next(err)
 	});
 });
 
 //remove comment
-router.delete("/:id", checkAuth, function (req, res, next) {
-	Comment.findByIdAndRemove(req.params.id, function (err) {
-		if (err) return next(err);
-
+router.delete("/:id", checkAuth, isCommentOwner, function (req, res, next) {
+	Comment.findByIdAndRemove(req.params.id).then(()=> {
 		emitSocketIOEvent(req, "commentDeleted");
 		res.json("ok");
+	}).catch((err)=> {
+		next(err)
 	});
 });
 
 //edit comment
-router.put("/:id", checkAuth, function (req, res, next) {
-	async.waterfall([
-		function (cb) {
-			Comment.findById(req.params.id, cb);
-		},
-		function (comment, cb) {
-			if (comment === null) return cb(new HttpError(404));
-			if (comment.get("_owner").toString() !== req.user.get("_id").toString()) return cb(new HttpError(401));
-
-			Comment.findByIdAndUpdate(
-				req.params.id, {
-					text: req.body.newComment
-				}, cb);
-		}
-	], function (err, comment) {
-		if (err) return next(err);
-
-		emitSocketIOEvent(req, "commentUpdated");
-		res.json(comment);
+router.put("/:id", checkAuth, isCommentOwner, function (req, res, next) {
+	Comment.findByIdAndUpdate(
+		req.params.id, {
+			text: req.body.newComment
+		})
+		.then((comment)=> {
+			emitSocketIOEvent(req, "commentUpdated");
+			res.json(comment);
+		}).catch((err)=> {
+		next(err)
 	});
 });
 

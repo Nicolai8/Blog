@@ -2,6 +2,11 @@
 var express = require("express");
 var router = express.Router();
 var checkAuth = require("middleware/checkAuth");
+var authRoute = require("./auth");
+var logoutRoute = require("./logout");
+var articleRoute = require("./article");
+var commentRoute = require("./comment");
+var profileRoute = require("./profile");
 
 module.exports = function (app) {
 	router.get("/", function (req, res, next) {
@@ -13,10 +18,10 @@ module.exports = function (app) {
 		});
 	});
 
-	app.use("/login", require("./auth"));
-	router.post("/logout", checkAuth, require("./logout"));
+	app.use("/login", authRoute);
+	router.post("/logout", checkAuth, logoutRoute);
 	app.use(router);
-	app.use("/article", require("./article"));
-	app.use("/comment", require("./comment"));
-	app.use("/profile", require("./profile"));
+	app.use("/article", articleRoute);
+	app.use("/comment", commentRoute);
+	app.use("/profile", profileRoute);
 };

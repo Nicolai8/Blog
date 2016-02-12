@@ -38,8 +38,8 @@ schema.methods.encryptPassword = function (password) {
 	return crypto.createHmac("sha1", this.salt).update(password).digest("hex");
 };
 
-schema.statics.getProfile = function (id, callback) {
-	this.findById(id).select("-hashedPassword -salt").exec(callback);
+schema.statics.getProfile = function (id) {
+	return this.findById(id).select("-hashedPassword -salt").exec();
 };
 
 schema.virtual("password")

@@ -1,6 +1,5 @@
 "use strict";
 var mongoose = require("lib/mongoose");
-var async = require("async");
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
@@ -11,16 +10,13 @@ var schema = new Schema({
 	_owner: {type: Schema.ObjectId, ref: "User", required: true}
 });
 
-schema.statics.getPage = function (searchQuery, pageIndex, pageSize, callback) {
+schema.statics.getPage = function (searchQuery, pageIndex, pageSize) {
 	var skip = (pageIndex - 1 ) * pageSize;
 	var Article = this;
 
-	async.waterfall([
-		function (cb) {
-			mongoose.models.User.find({"username": new RegExp(searchQuery, "i")}).select("_id").exec(cb);
-		},
-		function (users, cb) {
-			Article.find({
+	return mongoose.models.User.find({"username": new RegExp(searchQuery, "i")}).select("_id").exec()
+		.then((users)=> {
+			return Article.find({
 					$or: [
 						{"title": new RegExp(searchQuery, "i")},
 						{
@@ -37,22 +33,46 @@ schema.statics.getPage = function (searchQuery, pageIndex, pageSize, callback) {
 				.sort("-created")
 				.select("-content")
 				.skip(skip).limit(pageSize)
-				.exec(cb);
-		}
-	], callback);
+				.exec();
+		});
 };
 
-schema.statics.getPageByUserId = function (userId, pageIndex, pageSize, callback) {
+schema.statics.getPageByUserId = function (userId, pageIndex, pageSize) {
 	var skip = (pageIndex - 1 ) * pageSize;
 
-	this.find({"_owner": userId})
+	return this.find({"_owner": userId})
 		.populate({
 			path: "_owner",
 			select: "username"
 		})
 		.sort("-created")
 		.skip(skip).limit(pageSize)
-		.exec(callback);
+		.exec();
+};
+
+schema.statics.getArticleById = function(articleId){
+	let Article = this;
+	let Comment = mongoose.models.Comment;
+	let Rating = mongoose.models.Rating;
+
+	return Promise.all([
+		Article.findById(articleId)
+			.populate([{
+				path: "_owner",
+				select: "username"
+			}]).exec(),
+		Comment.find({"_article": articleId}).populate("_owner", "username").exec(),
+		Rating.aggregate({
+				$match: {"_article": mongoose.Types.ObjectId(articleId)}
+			}, {
+				$group: {
+					_id: null,
+					"ratingValue": {$avg: "$rating"},
+					"ratingCount": {$sum: 1}
+				}
+			}
+		).exec()
+	]);
 };
 
 exports.Article = mongoose.model("Article", schema);
