@@ -1,0 +1,47 @@
+[
+  {
+	"_id": "56b4a48b599fa6242c35ef7e",
+	"title": "Man must explore, and this is exploration at its greatest",
+	"subtitle": "Problems look mighty small from 150 miles up",
+	"_owner": {
+	  "_id": "56a0e27591518a0023bdf794",
+	  "username": "name"
+	},
+	"__v": 0,
+	"created": "2016-02-05T13:32:59.273Z"
+  },
+  {
+	"_id": "56a8d032cd2924cc0f387eeb",
+	"title": "sdfgsdf",
+	"subtitle": "gsdfgsfdg",
+	"_owner": {
+	  "_id": "56a8d00fcd2924cc0f387eea",
+	  "username": "970223143014647NicolaiBolotin"
+	},
+	"__v": 0,
+	"created": "2016-01-27T14:12:02.513Z"
+  },
+  {
+	"_id": "569e2d1425fa7b4c1cca5ed4",
+	"title": "Article 2",
+	"rating": 5,
+	"_owner": {
+	  "_id": "569e2d1425fa7b4c1cca5ed2",
+	  "username": "admin"
+	},
+	"__v": 0,
+	"subtitle": "some subtitle",
+	"created": "2016-01-19T12:33:24.027Z"
+  },
+  {
+	"_id": "569e2d1425fa7b4c1cca5ed3",
+	"title": "Article 1",
+	"rating": 4.5,
+	"_owner": {
+	  "_id": "569e2d1425fa7b4c1cca5ed2",
+	  "username": "admin"
+	},
+	"__v": 0,
+	"created": "2016-01-19T12:33:24.026Z"
+  }
+]
