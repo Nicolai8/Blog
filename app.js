@@ -1,3 +1,4 @@
+"use strict";
 var express = require("express");
 var path = require("path");
 var favicon = require("serve-favicon");
@@ -8,6 +9,7 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var session = require("express-session");
 var sessionStore = require("lib/sessionStore");
+var sendHttpError = require("lib/sendHttpError.js");
 
 var app = express();
 
@@ -15,7 +17,6 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
-app.use(require("middleware/sendHttpError"));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(logger("dev", {
@@ -48,7 +49,7 @@ app.use(sassMiddleware({
 	prefix: "/css"
 }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "node_modules")));
+app.use("/bower_components", express.static(path.join(__dirname, "bower_components")));
 
 require("routes")(app);
 
@@ -66,7 +67,7 @@ app.use(function (req, res, next) {
 if (app.get("env") === "development") {
 	app.use(function (err, req, res, next) {
 		res.status(err.status || 500);
-		res.sendHttpError(err);
+		sendHttpError(err, req, res, next);
 	});
 }
 
@@ -75,7 +76,7 @@ if (app.get("env") === "development") {
 app.use(function (err, req, res, next) {
 	res.status(err.status || 500);
 	err.stack = "";
-	res.sendHttpError(err);
+	sendHttpError(err, req, res, next);
 });
 
 module.exports = app;

@@ -1,6 +1,6 @@
+"use strict";
 var crypto = require("crypto");
 var async = require("async");
-var AuthError = require("errors").AuthError;
 
 var mongoose = require("lib/mongoose");
 var Schema = mongoose.Schema;

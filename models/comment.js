@@ -1,3 +1,4 @@
+"use strict";
 var mongoose = require("lib/mongoose");
 var Schema = mongoose.Schema;
 

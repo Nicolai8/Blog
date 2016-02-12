@@ -1,3 +1,4 @@
+"use strict";
 var express = require("express");
 var router = express.Router();
 var async = require("async");
@@ -56,8 +57,8 @@ router.put("/:id", checkAuth, function (req, res, next) {
 			Comment.findById(req.params.id, cb);
 		},
 		function (comment, cb) {
-			if (comment == null) return cb(new HttpError(404));
-			if (comment.get("_owner").toString() != req.user.get("_id").toString()) return cb(new HttpError(401));
+			if (comment === null) return cb(new HttpError(404));
+			if (comment.get("_owner").toString() !== req.user.get("_id").toString()) return cb(new HttpError(401));
 
 			Comment.findByIdAndUpdate(
 				req.params.id, {
@@ -77,7 +78,7 @@ function emitSocketIOEvent(req, eventName) {
 
 	Object.keys(clients).forEach(function (key) {
 		var client = clients[key];
-		if (client.client.id != (req.body.socketId || req.query.socketId)) {
+		if (client.client.id !== (req.body.socketId || req.query.socketId)) {
 			client.emit(eventName, "");
 		}
 	});

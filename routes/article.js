@@ -1,3 +1,4 @@
+"use strict";
 var express = require("express");
 var router = express.Router();
 var async = require("async");
@@ -111,8 +112,8 @@ router.delete("/:id", checkAuth, function (req, res, next) {
 			UnitOfWork.Article.findById(req.params.id, cb);
 		},
 		function (article, cb) {
-			if (article == null) return cb(new HttpError(404));
-			if (article.get("_owner").toString() != req.user.get("_id").toString()) return cb(new HttpError(401));
+			if (article === null) return cb(new HttpError(404));
+			if (article.get("_owner").toString() !== req.user.get("_id").toString()) return cb(new HttpError(401));
 
 			async.parallel([
 				function (callback) {
@@ -140,8 +141,8 @@ router.put("/:id", checkAuth, function (req, res, next) {
 			UnitOfWork.Article.findById(req.params.id, cb);
 		},
 		function (article, cb) {
-			if (article == null) return cb(new HttpError(404));
-			if (article.get("_owner").toString() != req.user.get("_id").toString()) return cb(new HttpError(401));
+			if (article === null) return cb(new HttpError(404));
+			if (article.get("_owner").toString() !== req.user.get("_id").toString()) return cb(new HttpError(401));
 
 			UnitOfWork.Article.findByIdAndUpdate(
 				req.params.id, {
@@ -168,7 +169,7 @@ router.put("/:id/rating", checkAuth, function (req, res, next) {
 			}, cb);
 		},
 		function (rating, cb) {
-			if (rating != null) {
+			if (rating !== null) {
 				return UnitOfWork.Rating.findByIdAndUpdate(rating.get("_id"), {rating: req.body.rating}, function (err) {
 					cb(err);
 				});

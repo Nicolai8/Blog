@@ -1,5 +1,6 @@
+"use strict";
 module.exports = function (server) {
-	var io = require("socket.io")({
+	let io = require("socket.io")({
 		"origins": "localhost:*"
 	});
 	io.listen(server);
