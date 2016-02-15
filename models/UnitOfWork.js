@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
-	Article: require("./Article").Article,
-	Comment: require("./Comment").Comment,
-	User: require("./User").User,
-	Rating: require("./Rating").Rating
+	Article: require("./article").Article,
+	Comment: require("./comment").Comment,
+	User: require("./user").User,
+	Rating: require("./rating").Rating
 };

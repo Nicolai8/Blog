@@ -2,29 +2,27 @@
 var express = require("express");
 var router = express.Router();
 var config = require("config");
-var mongoose = require("lib/mongoose");
 var HttpError = require("errors").HttpError;
-var UnitOfWork = require("models/UnitOfWork");
+var articleService = require("services/articleService");
+var ratingService = require("services/ratingService");
 var checkAuth = require("middleware/checkAuth");
 var isArticleOwner = require("middleware/isOwner")("article");
 
 //get all articles
 router.get("/:searchQuery?", function (req, res, next) {
-	UnitOfWork.Article.getPage(
+	articleService.get(
 			req.params.searchQuery || "",
 			req.params.page || 1,
 			req.params.pageSize || config.get("pageSize"))
 		.then((articles)=> {
 			res.json(articles);
 		})
-		.catch((err)=> {
-			next(err);
-		});
+		.catch(next);
 });
 
 //get article by id
 router.get("/getById/:id", function (req, res, next) {
-	UnitOfWork.Article.getArticleById(req.params.id)
+	articleService.getById(req.params.id)
 		.then((results)=> {
 			if (!results[0]) return next(new HttpError(404));
 
@@ -39,45 +37,36 @@ router.get("/getById/:id", function (req, res, next) {
 
 			res.json(article);
 		})
-		.catch((err)=> {
-			next(err)
-		});
+		.catch(next);
 });
 
 router.get("/getRatingForUser/:id", checkAuth, function (req, res, next) {
-	UnitOfWork.Rating.findOne({
-		_article: req.params.id,
-		_owner: req.user.get("_id")
-	}).then((rating) => {
+	ratingService.getRatingForUser(req.params.id, req.user.get("_id"))
+		.then((rating) => {
 			res.json(rating ? rating.get("rating") : 0);
 		})
-		.catch((err)=> {
-			next(err)
-		});
+		.catch(next);
 });
 
 //get all articles
 router.get("/getByUserId/:id", function (req, res, next) {
-	UnitOfWork.Article.getPageByUserId(req.params.id, 1, 10)
+	articleService.getPageByUserId(
+		req.params.id,
+			req.params.page || 1,
+			req.params.pageSize || config.get("pageSize")
+		)
 		.then((articles)=> {
 			res.json(articles);
 		})
-		.catch((err)=> {
-			next(err)
-		});
+		.catch(next);
 });
 
 //save article
 router.post("/", checkAuth, function (req, res, next) {
 	if (!req.body.content || !req.body.title) return next(new HttpError(400));
 
-	var article = new UnitOfWork.Article({
-		title: req.body.title,
-		subtitle: req.body.subtitle || "",
-		content: req.body.content,
-		_owner: req.user.get("_id")
-	});
-	article.save().then((article)=> {
+	articleService.create(req.user.get("_id"), req.body)
+		.then((article)=> {
 			article = article.toObject();
 			article._owner = {
 				_id: req.user.get("_id"),
@@ -85,30 +74,21 @@ router.post("/", checkAuth, function (req, res, next) {
 			};
 			res.json(article);
 		})
-		.catch((err)=> {
-			next(err);
-		});
+		.catch(next);
 });
 
 //remove article
 router.delete("/:id", checkAuth, isArticleOwner, function (req, res, next) {
-	Promise.all([
-			UnitOfWork.Article.findByIdAndRemove(req.params.id),
-			UnitOfWork.Comment.remove({"_article": req.params.id}),
-			UnitOfWork.Rating.remove({"_article": req.params.id})
-		])
+	articleService.delete(req.params.id)
 		.then(()=> {
 			res.json({});
 		})
-		.catch((err)=> {
-			next(err);
-		});
+		.catch(next);
 });
 
 //edit article
 router.put("/:id", checkAuth, isArticleOwner, function (req, res, next) {
-	UnitOfWork.Article.findByIdAndUpdate(
-		req.params.id, {
+	articleService.update(req.params.id, {
 			title: req.body.title,
 			subtitle: req.body.subtitle,
 			content: req.body.content
@@ -116,46 +96,18 @@ router.put("/:id", checkAuth, isArticleOwner, function (req, res, next) {
 		.then((article)=> {
 			res.json(article);
 		})
-		.catch((err)=> {
-			next(err);
-		});
+		.catch(next);
 });
 
+//update rating
 router.put("/:id/rating", checkAuth, function (req, res, next) {
-	UnitOfWork.Rating.findOne({
-		$and: [
-			{"_owner": req.user.get("_id")},
-			{"_article": req.params.id}
-		]
-	}).then((rating)=> {
-		if (rating !== null) {
-			return UnitOfWork.Rating.findByIdAndUpdate(rating.get("_id"), {rating: req.body.rating});
-		}
-		var newRating = new UnitOfWork.Rating({
-			"_owner": req.user.get("_id"),
-			"_article": req.params.id,
-			"rating": req.body.rating
-		});
-		return newRating.save();
-	}).then(()=> {
-		return UnitOfWork.Rating.aggregate({
-				$match: {"_article": mongoose.Types.ObjectId(req.params.id)}
-			}, {
-				$group: {
-					_id: null,
-					"ratingValue": {$avg: "$rating"},
-					"ratingCount": {$sum: 1}
-				}
-			}
-		).exec();
-	}).then(newRating=> {
-		res.json({
-			value: newRating[0].ratingValue,
-			count: newRating[0].ratingCount
-		});
-	}).catch(err=> {
-		return next(err);
-	});
+	ratingService.update(req.body.rating, req.user.get("_id"), req.params.id)
+		.then(newRating=> {
+			res.json({
+				value: newRating[0].ratingValue,
+				count: newRating[0].ratingCount
+			});
+		}).catch(next);
 });
 
 module.exports = router;

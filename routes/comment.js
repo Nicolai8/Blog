@@ -3,33 +3,21 @@ var express = require("express");
 var router = express.Router();
 var isCommentOwner = require("middleware/isOwner")("comment");
 var HttpError = require("errors").HttpError;
-var Comment = require("models/UnitOfWork").Comment;
+var commentService = require("services/commentService");
 var checkAuth = require("middleware/checkAuth");
 
 //get comments by Article Id
 router.get("/getByArticleId/:id", function (req, res, next) {
-	Comment.find({
-		_article: req.params.id
-	}).populate("_owner", "username")
-		.exec()
-		.then((comments)=> {
-			res.json(comments);
-		}).catch((err)=> {
-		next(err);
-	});
+	commentService.getByArticleId(req.params.id)
+		.then(res.json)
+		.catch(next);
 });
 
 //save comment
 router.post("/", checkAuth, function (req, res, next) {
 	if (!req.body.newComment) return next(new HttpError(400));
 
-	var comment = new Comment({
-		text: req.body.newComment,
-		_owner: req.user.get("_id"),
-		_article: req.body.articleId
-	});
-
-	comment.save()
+	commentService.create(req.user.get("_id"), req.body)
 		.then((comment)=> {
 			comment = comment.toObject();
 			comment._owner = {
@@ -39,33 +27,30 @@ router.post("/", checkAuth, function (req, res, next) {
 
 			emitSocketIOEvent(req, "commentAdded");
 			res.json(comment);
-		}).catch((err)=> {
-		next(err)
-	});
+		})
+		.catch(next);
 });
 
 //remove comment
 router.delete("/:id", checkAuth, isCommentOwner, function (req, res, next) {
-	Comment.findByIdAndRemove(req.params.id).then(()=> {
-		emitSocketIOEvent(req, "commentDeleted");
-		res.json("ok");
-	}).catch((err)=> {
-		next(err)
-	});
+	commentService.delete(req.params.id)
+		.then(()=> {
+			emitSocketIOEvent(req, "commentDeleted");
+			res.json({});
+		})
+		.catch(next);
 });
 
 //edit comment
 router.put("/:id", checkAuth, isCommentOwner, function (req, res, next) {
-	Comment.findByIdAndUpdate(
-		req.params.id, {
+	commentService.update(req.params.id, {
 			text: req.body.newComment
 		})
 		.then((comment)=> {
 			emitSocketIOEvent(req, "commentUpdated");
 			res.json(comment);
-		}).catch((err)=> {
-		next(err)
-	});
+		})
+		.catch(next);
 });
 
 function emitSocketIOEvent(req, eventName) {
