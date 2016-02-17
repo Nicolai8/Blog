@@ -9,6 +9,7 @@ import {AuthService} from "../services/auth.service";
 import {DateStringPipe} from "../pipes/date-string.pipe";
 import {CustomValidators} from "../common/custom-validators";
 import {PageComponent} from "./page.component";
+import {Constants} from "../constants";
 
 @Component({
     selector: ".profile",
@@ -75,7 +76,7 @@ export class ProfileComponent extends PageComponent {
     }
 
     remove() {
-        if (confirm("are you sure?")) {
+        if (confirm(Constants.MESSAGES["AreYouSure"])) {
             this._profileService.remove(()=> {
                 this._authService.isAuthorized.next(false);
                 this._authService.user.next(new User(""));

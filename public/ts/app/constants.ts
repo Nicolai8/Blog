@@ -3,12 +3,18 @@ export class Constants {
         return 10;
     }
 
-    public static get KEYS_LOOKUP_TABLE() {
+    public static get KEYS_LOOKUP_TABLE():{[key:string]:any} {
         return {
             "enter": 13,
             "shift": "shiftKey",
             "ctrl": "ctrlKey",
             "alt": "altKey"
+        };
+    }
+
+    public static get MESSAGES():{[key:string]:string} {
+        return {
+            AreYouSure: "Are you sure?"
         };
     }
 }

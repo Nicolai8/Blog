@@ -9,7 +9,9 @@ var checkAuth = require("middleware/checkAuth");
 //get comments by Article Id
 router.get("/getByArticleId/:id", function (req, res, next) {
 	commentService.getByArticleId(req.params.id)
-		.then(res.json)
+		.then((comments)=> {
+			res.json(comments);
+		})
 		.catch(next);
 });
 

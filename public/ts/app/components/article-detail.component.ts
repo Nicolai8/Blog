@@ -15,6 +15,7 @@ import {RatingDirective} from "../directives/rating.directive";
 import {AddCommentComponent} from "./add-comment.component";
 import {EditArticleComponent} from "./edit-article.component";
 import {PageComponent} from "./page.component";
+import {Constants} from "../constants";
 
 @Component({
     selector: "article-detail",
@@ -63,7 +64,7 @@ export class ArticleDetailComponent extends PageComponent {
     }
 
     remove() {
-        if (confirm("Are you sure?")) {
+        if (confirm(Constants.MESSAGES["AreYouSure"])) {
             this._articleService.remove(this.article._id,
                 ()=> this._router.navigate(["Home"]));
         }

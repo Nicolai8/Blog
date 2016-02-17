@@ -14,7 +14,6 @@ export class PageComponent implements OnActivate, OnDeactivate {
     }
 
     routerOnActivate() {
-        console.log("onActivate");
         return this.beforeInit().then(()=> {
             this.$body.removeClass("loading");
             this.$loader.fadeOut();
@@ -22,7 +21,6 @@ export class PageComponent implements OnActivate, OnDeactivate {
     }
 
     routerOnDeactivate() {
-        console.log("onDeactivate");
         let completer = PromiseWrapper.completer();
         this.$body.addClass("loading");
         this.$loader.fadeIn(() => {
