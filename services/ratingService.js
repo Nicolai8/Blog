@@ -21,16 +21,16 @@ module.exports = {
 			_owner: userId
 		});
 	},
-	update: function (rating, userId, articleId) {
+	update: function (newRatingValue, userId, articleId) {
 		return this.getRatingForUser(articleId, userId)
 			.then((rating)=> {
 				if (rating !== null) {
-					return Rating.findByIdAndUpdate(rating.get("_id"), {rating: rating});
+					return Rating.findByIdAndUpdate(rating.get("_id"), {rating: newRatingValue});
 				}
-				var newRating = new Rating({
+				let newRating = new Rating({
 					"_owner": userId,
 					"_article": articleId,
-					"rating": rating
+					"rating": newRatingValue
 				});
 				return newRating.save();
 			}).then(()=> {
