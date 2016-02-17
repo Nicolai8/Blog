@@ -1,12 +1,14 @@
 import {Component, OnInit} from "angular2/core";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
+import {FORM_DIRECTIVES, ControlGroup, FormBuilder} from "angular2/common";
+import {PromiseWrapper} from "angular2/src/facade/promise";
 import {Profile} from "../models/profile";
 import {User} from "../models/user";
 import {ProfileService} from "../services/profile.service";
 import {AuthService} from "../services/auth.service";
 import {DateStringPipe} from "../pipes/date-string.pipe";
-import {FORM_DIRECTIVES, ControlGroup, FormBuilder} from "angular2/common";
 import {CustomValidators} from "../common/custom-validators";
+import {PageComponent} from "./page.component";
 
 @Component({
     selector: ".profile",
@@ -16,7 +18,7 @@ import {CustomValidators} from "../common/custom-validators";
     pipes: [DateStringPipe]
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent extends PageComponent {
     public profile:Profile;
     public editProfileForm:ControlGroup;
     public editMode:boolean = false;
@@ -27,12 +29,25 @@ export class ProfileComponent implements OnInit {
                 private _router:Router,
                 private _routeParams:RouteParams,
                 private _formBuilder:FormBuilder) {
+        super();
     }
 
-    ngOnInit() {
-        var profileId = this._routeParams.get("id");
-        this._profileService.get(profileId, profile => this.profile = profile);
-        this._authService.user.subscribe(user=> this.canEdit = user && profileId == user["_id"]);
+    beforeInit() {
+        let setUserCompleter = PromiseWrapper.completer();
+        let profileId = this._routeParams.get("id");
+        this._profileService.get(profileId, profile => {
+            this.profile = profile;
+            this._completer.resolve();
+        });
+        this._authService.user.subscribe(user=> {
+            this.canEdit = user && profileId == user["_id"];
+            setUserCompleter.resolve();
+        });
+
+        return Promise.all([
+            setUserCompleter.promise,
+            this._completer.promise
+        ]);
     }
 
     edit() {

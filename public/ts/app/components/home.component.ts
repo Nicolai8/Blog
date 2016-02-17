@@ -3,6 +3,7 @@ import {Article} from "../models/article";
 import {ArticleService} from "../services/article.service";
 import {ArticleComponent} from "./article.component";
 import {LoadMoreComponent} from "./load-more.component";
+import {PageComponent} from "./page.component";
 
 @Component({
     selector: "main",
@@ -10,12 +11,13 @@ import {LoadMoreComponent} from "./load-more.component";
     directives: [ArticleComponent, LoadMoreComponent]
 })
 
-export class HomeComponent {
+export class HomeComponent extends PageComponent {
     public articles:Article[] = [];
     public searchString:string = "";
     protected _getArticles:Function;
 
     constructor(protected _articleService:ArticleService) {
+        super();
         this._getArticles = _articleService.get.bind(_articleService);
     }
 

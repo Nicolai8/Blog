@@ -1,5 +1,6 @@
-import {Component, OnInit} from "angular2/core";
+import {Component} from "angular2/core";
 import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
+import {PromiseWrapper} from "angular2/src/facade/promise";
 import {ArticleService} from "../services/article.service";
 import {CommentService} from "../services/comment.service";
 import {AuthService} from "../services/auth.service";
@@ -13,6 +14,7 @@ import {DateStringPipe} from "../pipes/date-string.pipe";
 import {RatingDirective} from "../directives/rating.directive";
 import {AddCommentComponent} from "./add-comment.component";
 import {EditArticleComponent} from "./edit-article.component";
+import {PageComponent} from "./page.component";
 
 @Component({
     selector: "article-detail",
@@ -23,7 +25,7 @@ import {EditArticleComponent} from "./edit-article.component";
     inputs: ["article"]
 })
 
-export class ArticleDetailComponent implements OnInit {
+export class ArticleDetailComponent extends PageComponent {
     private _user:User;
     public article:Article;
     public isAuthorized:boolean;
@@ -34,21 +36,30 @@ export class ArticleDetailComponent implements OnInit {
                 private _authService:AuthService,
                 private _router:Router,
                 private _routeParams:RouteParams) {
+        super();
     }
 
-    ngOnInit() {
+    beforeInit() {
+        let setUserCompleter = PromiseWrapper.completer();
         let articleId = this._routeParams.get("id");
         this._articleService.getById(articleId,
             article => {
                 this.article = article;
                 this.canEdit = this._user && this._user["_id"] == article._owner._id;
+                this._completer.resolve();
             }
         );
         this._authService.isAuthorized.subscribe(isAuthorized => this.isAuthorized = isAuthorized);
         this._authService.user.subscribe(user => {
             this._user = user;
             this.canEdit = this.article && user && user["_id"] == this.article._owner._id;
+            setUserCompleter.resolve();
         });
+
+        return Promise.all([
+            setUserCompleter.promise,
+            this._completer.promise
+        ]);
     }
 
     remove() {

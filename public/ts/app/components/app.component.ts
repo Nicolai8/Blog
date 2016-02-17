@@ -1,5 +1,5 @@
 import {Component, OnInit} from "angular2/core";
-import {Router, RouteConfig, RouterLink} from "angular2/router";
+import {Router, RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 import {HomeComponent} from "./home.component";
 import {ArticleDetailComponent} from "./article-detail.component";
 import {LoginComponent} from "./login.component";
@@ -11,13 +11,12 @@ import {CreateArticleComponent} from "./create-article.component";
 import {SearchComponent} from "./search.component";
 import {ErrorComponent} from "./error.component";
 import {cleanBlog} from "../plugins/clean-blog";
-import {CustomRouterOutletDirective} from "../directives/router-outlet.directive";
 import {SubmitOnDirective} from "../directives/submit-on.directive";
 
 @Component({
     selector: "my-app",
     templateUrl: "templates/app.component.html",
-    directives: [CustomRouterOutletDirective, RouterLink, LoginComponent, SubmitOnDirective],
+    directives: [ROUTER_DIRECTIVES, LoginComponent, SubmitOnDirective],
     providers: [AuthService, ArticleService]
 })
 

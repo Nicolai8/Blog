@@ -51,17 +51,15 @@ export function articleDetailComponentSpec() {
                 });
         }));
 
-        afterAll(()=>{
-           this.componentFixture.destroy();
+        afterAll(()=> {
+            this.componentFixture.destroy();
         });
 
         describe("editing", ()=> {
             beforeEach((done)=> {
-                articleDetailComponent.ngOnInit();
-
-                setTimeout(()=> {
+                articleDetailComponent.routerOnActivate().then(()=> {
                     done();
-                }, 100);
+                });
             });
 
             it("can't edit: not logged in", inject([AuthService], (authService)=> {
@@ -101,15 +99,14 @@ export function articleDetailComponentSpec() {
 
         describe("comments", ()=> {
             beforeEach((done)=> {
-                articleDetailComponent.ngOnInit();
-                $.getJSON("/data/comment.json", (comment)=> {
-                    this.comment = comment;
-                });
+                articleDetailComponent.routerOnActivate().then(()=> {
+                    $.getJSON("/data/comment.json", (comment)=> {
+                        this.comment = comment;
+                    });
 
-                setTimeout(()=> {
                     this.componentFixture.detectChanges();
                     done();
-                }, 100);
+                });
             });
 
             it("should render 1 comment", ()=> {

@@ -1,5 +1,6 @@
 import {Component, OnInit} from "angular2/core";
 import {RouteParams} from "angular2/router";
+import {PageComponent} from "./page.component";
 
 @Component({
     selector: "error",
@@ -24,12 +25,13 @@ import {RouteParams} from "angular2/router";
     `
 })
 
-export class ErrorComponent implements OnInit {
+export class ErrorComponent extends PageComponent implements OnInit {
     public status:string;
     public message:string;
     public stackTrace:string;
 
     constructor(private _routeParams:RouteParams) {
+        super();
     }
 
     ngOnInit() {

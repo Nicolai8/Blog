@@ -19,6 +19,7 @@
 			<template ngFor #article [ngForOf]="articles">
 				<article [article]="article"></article>
 			</template>
+			<span *ngIf="!articles || articles.length==0">There is no articles yet.</span>
 			<!-- Pager -->
 			<load-more (onLoad)="getNextPage($event)"></load-more>
 		</div>
