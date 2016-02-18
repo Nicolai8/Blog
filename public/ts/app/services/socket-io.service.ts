@@ -1,4 +1,3 @@
-/// <reference path="../../definitions/socket.io-client.d.ts"/>
 import {Injectable} from "angular2/core";
 import {Subject} from "rxjs/Subject";
 

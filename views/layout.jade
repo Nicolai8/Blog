@@ -19,22 +19,40 @@ html
 
     include footer
 
-    script(src="http://code.jquery.com/jquery-2.2.0.min.js")
-    script(src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js")
-    script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
+    if(env === "development")
+      script(src="/node_modules/jquery/dist/jquery.min.js")
+      script(src="/node_modules/jqueryui/jquery-ui.min.js")
+      script(src="/node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js")
 
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js")
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.16/system-polyfills.js")
+      script(src="/node_modules/es6-shim/es6-shim.min.js")
+      script(src="/node_modules/systemjs/dist/system-polyfills.js")
 
-    script(src="/bower_components/bootstrap-star-rating/js/star-rating.min.js")
-    script(src="https://code.angularjs.org/2.0.0-beta.0/angular2-polyfills.min.js")
-    script(src="https://code.angularjs.org/tools/system.js")
+      script(src="/bower_components/bootstrap-star-rating/js/star-rating.min.js")
+      script(src="/node_modules/angular2/bundles/angular2-polyfills.js")
+      script(src="/node_modules/systemjs/dist/system.js")
 
-    script(src="https://code.angularjs.org/2.0.0-beta.0/angular2.min.js")
-    script(src="https://code.angularjs.org/2.0.0-beta.3/Rx.min.js")
-    script(src="https://code.angularjs.org/2.0.0-beta.3/router.min.js")
-    script(src="https://code.angularjs.org/2.0.0-beta.3/http.min.js")
-    script(src="https://cdn.socket.io/socket.io-1.3.7.js")
+      script(src="/node_modules/angular2/bundles/angular2.dev.js")
+      script(src="/node_modules/rxjs/bundles/Rx.js")
+      script(src="/node_modules/angular2/bundles/router.dev.js")
+      script(src="/node_modules/angular2/bundles/http.dev.js")
+      script(src="/socket.io/socket.io.js")
+    else
+      script(src="http://code.jquery.com/jquery-2.2.0.min.js")
+      script(src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js")
+      script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
+
+      script(src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.33.3/es6-shim.min.js")
+      script(src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js")
+
+      script(src="/bower_components/bootstrap-star-rating/js/star-rating.min.js")
+      script(src="https://code.angularjs.org/2.0.0-beta.6/angular2-polyfills.min.js")
+      script(src="https://code.angularjs.org/tools/system.js")
+
+      script(src="https://code.angularjs.org/2.0.0-beta.6/angular2.min.js")
+      script(src="https://code.angularjs.org/2.0.0-beta.6/Rx.min.js")
+      script(src="https://code.angularjs.org/2.0.0-beta.6/router.min.js")
+      script(src="https://code.angularjs.org/2.0.0-beta.6/http.min.js")
+      script(src="https://cdn.socket.io/socket.io-1.3.7.js")
 
     script(src="/js/systemConfig.js")
     script.

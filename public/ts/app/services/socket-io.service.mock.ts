@@ -1,4 +1,3 @@
-/// <reference path="../../definitions/socket.io-client.d.ts"/>
 import {Subject} from "rxjs/Subject";
 
 export class MockSocketIOService {

@@ -1,4 +1,3 @@
-/// <reference path="../../definitions/socket.io-client.d.ts"/>
 import {Component, OnInit, Output, EventEmitter} from "angular2/core";
 import {SocketIOService} from "../services/socket-io.service";
 

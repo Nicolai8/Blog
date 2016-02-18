@@ -18,6 +18,8 @@
 	"config",
 	"middleware",
 	"routes",
-	"views"
+	"views",
+	"typings/main",
+	"typings/main.d.ts"
   ]
 }

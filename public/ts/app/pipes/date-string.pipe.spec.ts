@@ -1,4 +1,3 @@
-/// <reference path="../../../../node_modules/angular2/bundles/typings/jasmine/jasmine.d.ts"/>
 import {DateStringPipe} from "./date-string.pipe";
 
 describe("pipes/DateStringPipe", ()=> {

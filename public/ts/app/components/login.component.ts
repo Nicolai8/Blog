@@ -1,5 +1,3 @@
-/// <reference path="../../definitions/jquery.d.ts" />
-declare var y;
 import {Component} from "angular2/core";
 import {OnInit} from "angular2/core";
 import {ROUTER_DIRECTIVES} from "angular2/router";
