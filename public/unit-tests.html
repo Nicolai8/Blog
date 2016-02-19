@@ -23,9 +23,9 @@
 	});
 
 	Promise.all([
-				System.import("js/app/pipes/date-string.pipe.spec"),
-				System.import("js/app/services/auth.service.spec"),
-				System.import("js/app/components/components_spec")
+				System.import("js/app/common/pipes/date-string.pipe.spec"),
+				System.import("js/app/common/services/auth.service.spec"),
+				System.import("js/app/components_spec")
 			])
 			.then(window.onload)
 			.catch(console.error.bind(console));

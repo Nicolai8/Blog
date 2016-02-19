@@ -1,11 +1,11 @@
 import {bootstrap}    from "angular2/platform/browser";
-import {AppComponent} from "./components/app.component";
+import {AppComponent} from "./app/app.component";
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from "angular2/router";
 import {provide} from "angular2/core";
 import {HTTP_PROVIDERS} from "angular2/http";
-import {HttpService} from "./services/http.service";
+import {HttpService} from "./common/services/http.service";
 import {ExceptionHandler} from "angular2/core";
-import {CustomExceptionHandler} from "./exception-handler";
+import {CustomExceptionHandler} from "./common/exception-handler";
 
 //remove #_=_
 if (window.location.hash && window.location.hash === "#_=_") {
