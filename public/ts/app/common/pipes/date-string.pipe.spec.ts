@@ -1,4 +1,4 @@
-import {DateStringPipe} from "./date-string.pipe.ts";
+import {DateStringPipe} from "./date-string.pipe";
 
 describe("pipes/DateStringPipe", ()=> {
     let pipe:DateStringPipe;

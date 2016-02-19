@@ -1,14 +1,15 @@
 {
   "name": "Blog",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
-	"tsc": "tsc",
-	"tsc:w": "tsc -w",
+	"gulp": "gulp",
+	"build:dev": "npm run gulp -- build.dev",
+	"build:dev:watch": "npm run gulp -- build.dev.watch",
+	"build:test": "npm run gulp -- build.test",
 	"start": "node ./bin/www",
 	"startLocalDB": "_startDb.bat",
-	"startDevServer": "concurrent \"npm run tsc:w\" \"npm run start\" ",
-	"postinstall": "npm run typings install"
+	"startDevServer": "concurrent \"npm run build:dev:watch\" \"npm run start\" "
   },
   "license": "MIT",
   "dependencies": {
@@ -42,11 +43,23 @@
   },
   "devDependencies": {
 	"concurrently": "^1.0.0",
+	"gulp": "^3.9.1",
+	"gulp-clean": "^0.3.1",
+	"gulp-concat": "^2.6.0",
+	"gulp-inline-ng2-template": "0.0.11",
+	"gulp-plumber": "^1.1.0",
+	"gulp-sourcemaps": "^1.6.0",
+	"gulp-typescript": "~2.11.0",
+	"gulp-uglify": "^1.2.0",
+	"gulp-util": "^3.0.7",
+	"gulp-watch": "^4.2.4",
 	"jasmine-core": "2.4.1",
-	"typescript": "^1.7.5",
-	"typings": "^0.6.8",
 	"jquery": "^2.2.0",
-	"jqueryui": "^1.11.1"
+	"jqueryui": "^1.11.1",
+	"run-sequence": "^1.1.5",
+	"systemjs-builder": "^0.15.9",
+	"typescript": "^1.7.5",
+	"typings": "^0.6.8"
   },
   "engines": {
 	"node": "^5.4.0"
