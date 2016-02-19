@@ -6,7 +6,7 @@ var Builder = require("systemjs-builder");
 const SYSTEM_BUILDER_CONFIG = {
 	defaultJSExtensions: true,
 	paths: {
-		"public/js/tmp/*": "public/js/tmp/*",
+		"public/js/tmp/*": `${config.TMP_DEST}/*`,
 		"*": `node_modules/*`
 	}
 };
@@ -21,8 +21,8 @@ exports.prod = function (gulp) {
 	return function (callback) {
 		let builder = new Builder(SYSTEM_BUILDER_CONFIG);
 		builder.buildStatic(
-			path.join(config.TMP_DEST, "app", "boot"),
-			path.join(config.APP_DEST, "app", "boot.js"),
+			path.join(config.TMP_DEST, "app", config.BOOTSTRAP),
+			path.join(config.APP_DEST, "app", `${config.BOOTSTRAP}.js`),
 			BUNDLER_OPTIONS)
 			.then(()=> {
 				callback();
