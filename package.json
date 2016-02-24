@@ -1,9 +1,9 @@
 {
   "name": "Blog",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "scripts": {
-	"postinstall": "npm run typings install",
+	"postinstall": "npm run typings install && bower install",
 	"typings" : "typings",
 	"gulp": "gulp",
 	"build:dev": "npm run gulp -- build.dev",
@@ -15,7 +15,8 @@
   },
   "license": "MIT",
   "dependencies": {
-	"angular2": "2.0.0-beta.6",
+	"bower": "1.7.7",
+	"angular2": "2.0.0-beta.7",
 	"bluebird": "^3.3.1",
 	"body-parser": "~1.13.2",
 	"bootstrap-sass": "^3.3.6",
@@ -37,11 +38,11 @@
 	"passport-facebook": "^2.0.0",
 	"passport-local": "^1.0.0",
 	"reflect-metadata": "0.1.2",
-	"rxjs": "5.0.0-beta.0",
+	"rxjs": "5.0.0-beta.2",
 	"serve-favicon": "~2.3.0",
 	"socket.io": "^1.4.4",
-	"systemjs": "0.19.20",
-	"zone.js": "0.5.14"
+	"systemjs": "0.19.22",
+	"zone.js": "0.5.15"
   },
   "devDependencies": {
 	"concurrently": "^1.0.0",
