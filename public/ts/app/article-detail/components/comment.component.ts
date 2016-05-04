@@ -1,5 +1,5 @@
-import {Component, Input, Output, EventEmitter, OnInit} from "angular2/core";
-import {ROUTER_DIRECTIVES} from "angular2/router";
+import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core";
+import {ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {AuthService} from "../../common/services/auth.service";
 import {User} from "../../common/models/user";
 import {DateStringPipe} from "../../common/pipes/date-string.pipe";

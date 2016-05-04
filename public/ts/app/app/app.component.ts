@@ -1,5 +1,5 @@
-import {Component, OnInit} from "angular2/core";
-import {Router, RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
+import {Component, OnInit} from "@angular/core";
+import {Router, RouteConfig, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {HomeComponent} from "../articles/home.component";
 import {ArticleDetailComponent} from "./../article-detail/article-detail.component";
 import {LoginComponent} from "./components/login.component";

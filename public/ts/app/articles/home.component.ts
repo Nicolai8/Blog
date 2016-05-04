@@ -1,4 +1,4 @@
-import {Component} from "angular2/core";
+import {Component} from "@angular/core";
 import {Article} from "../common/models/article";
 import {ArticleService} from "../common/services/article.service";
 import {ArticleComponent} from "./components/article.component";

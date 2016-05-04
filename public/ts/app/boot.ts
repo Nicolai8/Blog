@@ -1,10 +1,10 @@
-import {bootstrap}    from "angular2/platform/browser";
+import {bootstrap}    from "@angular/platform-browser-dynamic";
 import {AppComponent} from "./app/app.component";
-import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from "angular2/router";
-import {provide} from "angular2/core";
-import {HTTP_PROVIDERS} from "angular2/http";
+import {ROUTER_PROVIDERS} from "@angular/router-deprecated";
+import {provide, ExceptionHandler} from "@angular/core";
+import {HTTP_PROVIDERS} from "@angular/http";
 import {HttpService} from "./common/services/http.service";
-import {ExceptionHandler} from "angular2/core";
+import {LocationStrategy, HashLocationStrategy} from "@angular/common"
 import {CustomExceptionHandler} from "./common/exception-handler";
 
 //remove #_=_
@@ -21,5 +21,5 @@ bootstrap(AppComponent, [
     HTTP_PROVIDERS,
     provide(LocationStrategy, {useClass: HashLocationStrategy}),
     HttpService,
-    provide(ExceptionHandler, {useClass: CustomExceptionHandler})
+   // provide(ExceptionHandler, {useClass: CustomExceptionHandler})
 ]);

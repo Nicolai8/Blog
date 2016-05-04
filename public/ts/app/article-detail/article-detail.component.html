@@ -6,7 +6,7 @@
 					<div class="post-heading">
 						<h1>{{article.title}}</h1>
 						<h2 class="subheading" *ngIf="article.subtitle">{{article.subtitle}}</h2>
-						<span class="meta">Posted by <a [routerLink]="['Profile', {id:article._owner._id}]">{{article._owner.username}}</a> on {{article.created | dateString:"yMMMMd"}}</span>
+						<span class="meta">Posted by <a [routerLink]="['Profile', {id:article._owner._id}]">{{article._owner.username}}</a> on <!--{{article.created | dateString:"yMMMMd"}}--></span>
 						<br>
 						<p *ngIf="article.rating">Article rating {{article.rating?.value | number: '1.0-1'}}/10, with
 							{{article.rating?.count}} votes.</p>
@@ -50,7 +50,7 @@
 			<h3>Comments:</h3>
 			<hr>
 			<div class="comments" *ngIf="article.comments?.length>0">
-				<template ngFor #comment [ngForOf]="article.comments">
+				<template ngFor let-comment [ngForOf]="article.comments">
 					<div class="media comment" [comment]="comment"
 						 (removed)="onCommentRemoved(comment)"></div>
 				</template>

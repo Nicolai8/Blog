@@ -1,5 +1,5 @@
-import {Component} from "angular2/core";
-import {Router} from "angular2/router";
+import {Component} from "@angular/core";
+import {Router} from "@angular/router-deprecated";
 import {ArticleService} from "../common/services/article.service";
 import {Article} from "../common/models/article";
 import {PageComponent} from "../common/components/page.component";

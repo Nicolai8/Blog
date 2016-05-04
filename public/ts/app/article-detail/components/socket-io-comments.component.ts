@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from "angular2/core";
+import {Component, OnInit, Output, EventEmitter} from "@angular/core";
 import {SocketIOService} from "../../common/services/socket-io.service";
 
 @Component({
@@ -8,7 +8,7 @@ import {SocketIOService} from "../../common/services/socket-io.service";
 })
 
 export class SocketIOCommentsComponent implements OnInit {
-    @Output() onUpdate:EventEmitter<Function> = new EventEmitter();
+    @Output() onUpdate = new EventEmitter<Function>();
     public deleted:number = 0;
     public updated:number = 0;
     public added:number = 0;

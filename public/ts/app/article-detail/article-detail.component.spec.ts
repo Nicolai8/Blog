@@ -3,14 +3,14 @@ import {
     describe, expect,
     it,
     inject, injectAsync,
-    MockApplicationRef,
-    TestComponentBuilder,
-    ComponentFixture
-} from "angular2/testing";
-import {ApplicationRef, provide} from "angular2/core";
-import {ROUTER_PROVIDERS, RouteParams, ROUTER_PRIMARY_COMPONENT, LocationStrategy, APP_BASE_HREF} from "angular2/router";
-import {MockLocationStrategy} from "angular2/router/testing";
-import {PromiseWrapper} from "angular2/src/facade/promise";
+    MockApplicationRef
+} from "@angular/core/testing";
+import {TestComponentBuilder, ComponentFixture} from "@angular/compiler/testing"
+import {ApplicationRef, provide} from "@angular/core";
+import {LocationStrategy, APP_BASE_HREF} from "@angular/common"
+import {ROUTER_PROVIDERS, RouteParams, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated";
+import {MockLocationStrategy} from "@angular/common/testing";
+import {PromiseWrapper} from "@angular/core/src/facade/promise";
 
 import {ArticleDetailComponent} from "./article-detail.component";
 import {AppComponent} from "./../app/app.component";

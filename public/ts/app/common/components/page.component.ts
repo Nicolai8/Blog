@@ -1,5 +1,5 @@
-import {OnActivate, OnDeactivate} from "angular2/router";
-import {PromiseCompleter, PromiseWrapper} from "angular2/src/facade/promise";
+import {OnActivate, OnDeactivate} from "@angular/router-deprecated";
+import {PromiseCompleter, PromiseWrapper} from "@angular/core/src/facade/promise";
 
 export class PageComponent implements OnActivate, OnDeactivate {
     private $loader = jQuery(".loader");

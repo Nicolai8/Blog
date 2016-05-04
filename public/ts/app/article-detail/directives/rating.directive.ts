@@ -1,15 +1,15 @@
-import {Component,Directive, Output, Input, OnInit, ElementRef, EventEmitter, OnDestroy} from "angular2/core";
+import {Component,Directive, Output, Input, OnInit, ElementRef, EventEmitter, OnDestroy} from "@angular/core";
 import {Article} from "../../common/models/article";
 import {ArticleService} from "../../common/services/article.service";
 import {AuthService} from "../../common/services/auth.service";
-import {} from "angular2/core";
+import {} from "@angular/core";
 
 @Directive({
     selector: "input.rating",
 })
 
 export class RatingDirective implements OnInit, OnDestroy {
-    @Output() changed:EventEmitter<string> = new EventEmitter();
+    @Output() changed = new EventEmitter<string>();
     @Input() article:Article;
     private $element;
     private _options;

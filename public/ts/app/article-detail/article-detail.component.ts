@@ -1,6 +1,6 @@
-import {Component} from "angular2/core";
-import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
-import {PromiseWrapper} from "angular2/src/facade/promise";
+import {Component} from "@angular/core";
+import {Router, RouteParams, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {PromiseWrapper} from "@angular/core/src/facade/promise";
 import {ArticleService} from "../common/services/article.service";
 import {CommentService} from "../common/services/comment.service";
 import {AuthService} from "../common/services/auth.service";

@@ -16,7 +16,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<template ngFor #article [ngForOf]="articles">
+			<template ngFor let-article [ngForOf]="articles">
 				<article [article]="article"></article>
 			</template>
 			<span *ngIf="!articles || articles.length==0">Your search did not match any articles.</span>

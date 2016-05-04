@@ -1,14 +1,14 @@
-import {Pipe} from "angular2/core";
-import {DatePipe} from "angular2/common";
+import {Pipe} from "@angular/core";
+import {DatePipe} from "@angular/common";
 
 @Pipe({
     name: "dateString"
 })
 export class DateStringPipe extends DatePipe {
-    transform(value:any, args:any[]):string {
+    transform(value: any, pattern?: string):string {
         if (!value) {
             return "";
         }
-        return super.transform(Date.parse(value), args);
+        return super.transform(Date.parse(value), pattern || "");
     }
 }

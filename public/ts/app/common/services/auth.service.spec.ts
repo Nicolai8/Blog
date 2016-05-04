@@ -4,12 +4,13 @@ import {
     it,
     inject, injectAsync,
     MockApplicationRef
-} from "angular2/testing";
-import {provide, ApplicationRef} from "angular2/core";
-import {ROUTER_PROVIDERS, LocationStrategy,APP_BASE_HREF, ROUTER_PRIMARY_COMPONENT} from "angular2/router";
-import {MockLocationStrategy} from "angular2/router/testing";
-import {HTTP_PROVIDERS} from "angular2/http";
-import {PromiseWrapper} from "angular2/src/facade/promise";
+} from "@angular/core/testing";
+import {provide, ApplicationRef} from "@angular/core";
+import {ROUTER_PROVIDERS, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated";
+import {MockLocationStrategy} from "@angular/common/testing";
+import {LocationStrategy, APP_BASE_HREF} from "@angular/common"
+import {HTTP_PROVIDERS} from "@angular/http";
+import {PromiseWrapper} from "@angular/core/src/facade/promise";
 import {HttpService} from "./http.service";
 import {MockHttpService} from "./http.service.mock";
 import {AuthService} from "./auth.service";

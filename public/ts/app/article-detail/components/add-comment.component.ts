@@ -1,9 +1,9 @@
-import {Component, Input, Output, EventEmitter, OnInit} from "angular2/core";
+import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core";
 import {AuthService} from "../../common/services/auth.service";
 import {User} from "../../common/models/user";
 import {CommentService} from "../../common/services/comment.service";
 import {SubmitOnDirective} from "../../common/directives/submit-on.directive";
-import {Control} from "angular2/common";
+import {Control} from "@angular/common";
 
 @Component({
     selector: "add-comment",

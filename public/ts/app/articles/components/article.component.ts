@@ -1,6 +1,6 @@
-import {Component, OnInit} from "angular2/core";
+import {Component, OnInit} from "@angular/core";
 import {Article} from "../../common/models/article";
-import {ROUTER_DIRECTIVES} from "angular2/router";
+import {ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 import {DateStringPipe} from "../../common/pipes/date-string.pipe";
 
 @Component({

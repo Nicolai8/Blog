@@ -1,4 +1,4 @@
-import {Headers} from "angular2/http";
+import {Headers} from "@angular/http";
 import {HttpService} from "./http.service";
 
 export class MockHttpService extends HttpService{

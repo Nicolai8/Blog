@@ -11,7 +11,7 @@
 		<p class="post-meta">Posted
 			<template [ngIf]="!userId">by <a [routerLink]="['Profile',{id: article._owner._id}]">{{article._owner.username}}</a>
 			</template>
-			on {{article.created | dateString:"yMMMMd"}}
+			<!--on {{article.created | dateString:"yMMMMd"}}-->
 		</p>
 	</div>
 	<hr>

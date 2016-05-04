@@ -3,21 +3,19 @@ import {
     describe, expect,
     it,
     inject, injectAsync,
-    MockApplicationRef,
-    TestComponentBuilder,
-    ComponentFixture
-} from "angular2/testing";
-import {ROUTER_PROVIDERS} from "angular2/router";
-import {ApplicationRef} from "angular2/core";
-import {LocationStrategy,APP_BASE_HREF} from "angular2/router";
-import {MockLocationStrategy} from "angular2/router/testing";
-import {ROUTER_PRIMARY_COMPONENT} from "angular2/router";
+    MockApplicationRef
+} from "@angular/core/testing";
+import {TestComponentBuilder, ComponentFixture} from "@angular/compiler/testing"
+import {ROUTER_PROVIDERS, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated";
+import {ApplicationRef} from "@angular/core";
+import {LocationStrategy, APP_BASE_HREF} from "@angular/common"
+import {MockLocationStrategy} from "@angular/common/testing";
 
 import {HomeComponent} from "./home.component";
-import {provide} from "angular2/core";
+import {provide} from "@angular/core";
 import {ArticleService} from "../common/services/article.service";
 import {MockArticleService} from "../common/services/article.service.mock";
-import {PromiseWrapper} from "angular2/src/facade/promise";
+import {PromiseWrapper} from "@angular/core/src/facade/promise";
 import {Constants} from "../common/constants";
 import {AppComponent} from "./../app/app.component";
 
@@ -46,7 +44,7 @@ export function homeComponentSpec() {
                 });
             });
 
-            return completer.promise.then((homeComponent)=> {
+            return completer.promise.then((homeComponent: ComponentFixture)=> {
                 var $articles = $(homeComponent.nativeElement).find(".articles").children("article");
                 expect($articles.length).toEqual(4);
             });

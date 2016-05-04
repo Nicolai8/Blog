@@ -26,9 +26,9 @@
 						<template [ngIf]="!editMode">
 							<div class="col-md-6">
 								<span class="text-muted">Email:</span> {{profile.email}}<br>
-								<span class="text-muted">Birth date:</span> {{profile.birthday|dateString:"yMMMMd"}}<br>
+								<span class="text-muted">Birth date:</span><!-- {{profile.birthday|dateString:"yMMMMd"}}--><br>
 								<span class="text-muted">Gender:</span> {{profile.gender}}<br><br>
-								<small class="text-muted">Created: {{profile.created | dateString:"yMMMMd"}}</small>
+								<small class="text-muted">Created: <!--{{profile.created | dateString:"yMMMMd"}}--></small>
 								<br><br>
 								<a [routerLink]="['UserArticles', {id: profile._id}]"
 								   class="text-muted">

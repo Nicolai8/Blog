@@ -1,5 +1,5 @@
-import {Control} from "angular2/common";
-import {isBlank} from "angular2/src/facade/lang";
+import {Control} from "@angular/common";
+import {isBlank} from "@angular/core/src/facade/lang";
 
 export class CustomValidators {
     static email(control:Control):{[key: string]: boolean} {

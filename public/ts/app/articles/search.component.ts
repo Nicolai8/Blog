@@ -1,5 +1,5 @@
-import {Component, OnInit} from "angular2/core";
-import {RouteParams} from "angular2/router";
+import {Component, OnInit} from "@angular/core";
+import {RouteParams} from "@angular/router-deprecated";
 import {ArticleService} from "../common/services/article.service";
 import {ArticleComponent} from "./components/article.component";
 import {LoadMoreComponent} from "./components/load-more.component";

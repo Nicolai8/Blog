@@ -1,7 +1,7 @@
-import {Component, OnInit} from "angular2/core";
-import {Router, RouteParams, ROUTER_DIRECTIVES} from "angular2/router";
-import {FORM_DIRECTIVES, ControlGroup, FormBuilder} from "angular2/common";
-import {PromiseWrapper} from "angular2/src/facade/promise";
+import {Component, OnInit} from "@angular/core";
+import {Router, RouteParams, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
+import {FORM_DIRECTIVES, ControlGroup, FormBuilder} from "@angular/common";
+import {PromiseWrapper} from "@angular/core/src/facade/promise";
 import {Profile} from "../common/models/profile";
 import {User} from "../common/models/user";
 import {ProfileService} from "../common/services/profile.service";

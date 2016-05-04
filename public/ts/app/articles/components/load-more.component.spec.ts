@@ -6,13 +6,13 @@ import {
     TestComponentBuilder,
     ComponentFixture,
     setBaseTestProviders
-} from "angular2/testing";
+} from "@angular/testing";
 import {LoadMoreComponent} from "./load-more.component";
-import {provide} from "angular2/core";
+import {provide} from "@angular/core";
 import {ArticleService} from "../../common/services/article.service";
 import {MockArticleService} from "../../common/services/article.service.mock";
 import {Constants} from "../../common/constants";
-import {PromiseWrapper} from "angular2/src/facade/promise";
+import {PromiseWrapper} from "@angular/src/facade/promise";
 
 export function loadMoreComponentSpec() {
     describe("LoadMoreComponent", ()=> {

@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter} from "angular2/core";
+import {Component, Output, EventEmitter} from "@angular/core";
 import {ArticleService} from "../../common/services/article.service";
 import {Article} from "../../common/models/article";
 

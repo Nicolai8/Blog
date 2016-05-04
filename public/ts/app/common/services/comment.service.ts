@@ -1,4 +1,4 @@
-import {Injectable} from "angular2/core";
+import {Injectable} from "@angular/core";
 import {Comment} from "../models/comment";
 import {HttpService} from "./http.service";
 import {SocketIOService} from "./socket-io.service";

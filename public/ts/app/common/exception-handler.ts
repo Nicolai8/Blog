@@ -1,5 +1,5 @@
-import {ExceptionHandler} from "angular2/core";
-import {Router} from "angular2/router";
+import {ExceptionHandler} from "@angular/core";
+import {Router} from "@angular/router-deprecated";
 
 export class CustomExceptionHandler extends ExceptionHandler {
     call(error, stackTrace = null, reason = null) {
