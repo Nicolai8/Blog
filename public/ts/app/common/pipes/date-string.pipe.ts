@@ -1,14 +1,15 @@
-import {Pipe} from "@angular/core";
+import {Pipe, PipeTransform} from "@angular/core";
 import {DatePipe} from "@angular/common";
 
 @Pipe({
     name: "dateString"
 })
-export class DateStringPipe extends DatePipe {
+export class DateStringPipe implements PipeTransform{
     transform(value: any, pattern?: string):string {
         if (!value) {
             return "";
         }
-        return super.transform(Date.parse(value), pattern || "");
+        let datePipe = new DatePipe();
+        return datePipe.transform(Date.parse(value), pattern);
     }
 }

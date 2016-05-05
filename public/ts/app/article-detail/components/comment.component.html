@@ -4,7 +4,7 @@
 	</a>
 	<div class="media-body">
 		<h4 class="media-heading"><a [routerLink]="['Profile',{id: comment._owner._id}]">{{comment._owner.username}}</a>
-			<small><!--{{comment.created | dateString: "yMMMMd at jm"}}--></small>
+			<small>{{comment.created | dateString: "yMMMMd at jm"}}</small>
 		</h4>
 		<template [ngIf]="!editMode">
 			{{comment.text}}
