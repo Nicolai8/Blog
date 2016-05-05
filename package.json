@@ -26,11 +26,11 @@
     "@angular/upgrade": "2.0.0-rc.1",
     "angular2-in-memory-web-api": "0.0.7",
     "bluebird": "^3.3.1",
-    "body-parser": "~1.13.2",
+    "body-parser": "^1.13.3",
     "bootstrap-sass": "^3.3.6",
-    "bower": "1.7.7",
+    "bower": "^1.7.7",
     "connect-mongo": "^1.1.0",
-    "cookie-parser": "~1.3.5",
+    "cookie-parser": "^1.3.5",
     "crypto": "0.0.3",
     "debug": "^2.2.0",
     "es6-shim": "^0.35.0",
@@ -39,9 +39,9 @@
     "jade": "~1.11.0",
     "kerberos": "~0.0.17",
     "mongoose": "^4.3.5",
-    "morgan": "~1.6.1",
+    "morgan": "^1.6.1",
     "nconf": "^0.8.2",
-    "node-sass-middleware": "0.8.0",
+    "node-sass-middleware": "^0.8.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0",
@@ -73,6 +73,6 @@
     "typings": "^0.8.1"
   },
   "engines": {
-    "node": "^5.9.1"
+    "node": "^6.0.0"
   }
 }
