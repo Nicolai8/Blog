@@ -2,7 +2,7 @@ import {
     beforeEach, beforeEachProviders,
     describe, expect,
     it,
-    inject, injectAsync,
+    inject, async,
     MockApplicationRef
 } from "@angular/core/testing";
 import {provide, ApplicationRef} from "@angular/core";
@@ -38,20 +38,21 @@ describe("services/AuthService", ()=> {
             expect(authService.isAuthorized.getValue()).toBeFalsy();
         }));
 
-        it("login", injectAsync([AuthService], authService=> {
-            expect(authService.user.getValue()).toBeUndefined();
+        it("login", async(inject([AuthService], (authService)=> {
+                expect(authService.user.getValue()).toBeUndefined();
 
-            var completer = PromiseWrapper.completer();
-            authService.login({
-                username: "test"
-            }, ()=> {
-                completer.resolve();
-            });
+                var completer = PromiseWrapper.completer();
+                authService.login({
+                    username: "test"
+                }, ()=> {
+                    completer.resolve();
+                });
 
-            return completer.promise.then(()=> {
-                expect(authService.user.getValue().username).toEqual("test");
-            });
-        }));
+                completer.promise.then(()=> {
+                    expect(authService.user.getValue().username).toEqual("test");
+                });
+            })
+        ));
     });
 
     describe("window[user]!=undefined", ()=> {

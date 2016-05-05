@@ -2,10 +2,11 @@ import {
     beforeEach, beforeEachProviders,
     describe, expect,
     it,
-    inject, injectAsync,
+    inject, async,
     MockApplicationRef
 } from "@angular/core/testing";
-import {TestComponentBuilder, ComponentFixture} from "@angular/compiler/testing"
+import {TestComponentBuilder, ComponentFixture} from "@angular/compiler/testing";
+import {Type} from "@angular/compiler/src/facade/lang";
 import {ROUTER_PROVIDERS, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated";
 import {ApplicationRef} from "@angular/core";
 import {LocationStrategy, APP_BASE_HREF} from "@angular/common"
@@ -30,24 +31,25 @@ export function homeComponentSpec() {
             provide(ApplicationRef, {useClass: MockApplicationRef}),
         ]);
 
-        it("should render list of 4", injectAsync([TestComponentBuilder], (tcb:TestComponentBuilder)=> {
-            var completer = PromiseWrapper.completer();
-            tcb.createAsync(HomeComponent).then((componentFixture:ComponentFixture)=> {
-                componentFixture.componentInstance.getNextPage({
-                    page: 1,
-                    pageSize: Constants.PAGE_SIZE,
-                    callback: (loadedArticles)=> {
-                        expect(loadedArticles).toEqual(4);
-                        componentFixture.detectChanges();
-                        completer.resolve(componentFixture);
-                    }
+        it("should render list of 4", async(inject([TestComponentBuilder], (tcb:TestComponentBuilder)=> {
+                var completer = PromiseWrapper.completer();
+                tcb.createAsync(<Type>HomeComponent).then((componentFixture:ComponentFixture<any>)=> {
+                    componentFixture.componentInstance.getNextPage({
+                        page: 1,
+                        pageSize: Constants.PAGE_SIZE,
+                        callback: (loadedArticles)=> {
+                            expect(loadedArticles).toEqual(4);
+                            componentFixture.detectChanges();
+                            completer.resolve(componentFixture);
+                        }
+                    });
                 });
-            });
 
-            return completer.promise.then((homeComponent: ComponentFixture)=> {
-                var $articles = $(homeComponent.nativeElement).find(".articles").children("article");
-                expect($articles.length).toEqual(4);
-            });
-        }))
+                completer.promise.then((homeComponent:ComponentFixture<any>)=> {
+                    var $articles = $(homeComponent.nativeElement).find(".articles").children("article");
+                    expect($articles.length).toEqual(4);
+                });
+            })
+        ));
     });
 }

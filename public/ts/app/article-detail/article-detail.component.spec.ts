@@ -2,10 +2,11 @@ import {
     beforeEach, beforeEachProviders,
     describe, expect,
     it,
-    inject, injectAsync,
+    inject, async,
     MockApplicationRef
 } from "@angular/core/testing";
-import {TestComponentBuilder, ComponentFixture} from "@angular/compiler/testing"
+import {TestComponentBuilder, ComponentFixture} from "@angular/compiler/testing";
+import {Type} from "@angular/compiler/src/facade/lang";
 import {ApplicationRef, provide} from "@angular/core";
 import {LocationStrategy, APP_BASE_HREF} from "@angular/common"
 import {ROUTER_PROVIDERS, RouteParams, ROUTER_PRIMARY_COMPONENT} from "@angular/router-deprecated";
@@ -31,25 +32,26 @@ export function articleDetailComponentSpec() {
         beforeEachProviders(()=> {
             return [provide(AuthService, {useClass: MockAuthService})];
         });
-        beforeEach(injectAsync([TestComponentBuilder], (tcb:TestComponentBuilder) => {
-            return tcb
-                .overrideProviders(ArticleDetailComponent, [
-                    provide(ArticleService, {useClass: MockArticleService}),
-                    provide(CommentService, {useClass: MockCommentService}),
-                    provide(SocketIOService, {useClass: MockSocketIOService}),
-                    provide(RouteParams, {useClass: MockRouteParams}),
-                    ROUTER_PROVIDERS,
-                    provide(APP_BASE_HREF, {useValue: '/'}),
-                    provide(ROUTER_PRIMARY_COMPONENT, {useValue: AppComponent}),
-                    provide(LocationStrategy, {useClass: MockLocationStrategy}),
-                    provide(ApplicationRef, {useClass: MockApplicationRef})
-                ])
-                .createAsync(ArticleDetailComponent)
-                .then((componentFixture:ComponentFixture) => {
-                    this.componentFixture = componentFixture;
-                    articleDetailComponent = componentFixture.componentInstance;
-                });
-        }));
+        beforeEach(async(inject([TestComponentBuilder], (tcb:TestComponentBuilder) => {
+                tcb
+                    .overrideProviders(<Type>ArticleDetailComponent, [
+                        provide(ArticleService, {useClass: MockArticleService}),
+                        provide(CommentService, {useClass: MockCommentService}),
+                        provide(SocketIOService, {useClass: MockSocketIOService}),
+                        provide(RouteParams, {useClass: MockRouteParams}),
+                        ROUTER_PROVIDERS,
+                        provide(APP_BASE_HREF, {useValue: '/'}),
+                        provide(ROUTER_PRIMARY_COMPONENT, {useValue: AppComponent}),
+                        provide(LocationStrategy, {useClass: MockLocationStrategy}),
+                        provide(ApplicationRef, {useClass: MockApplicationRef})
+                    ])
+                    .createAsync(<Type>ArticleDetailComponent)
+                    .then((componentFixture:ComponentFixture<any>) => {
+                        this.componentFixture = componentFixture;
+                        articleDetailComponent = componentFixture.componentInstance;
+                    });
+            })
+        ));
 
         afterAll(()=> {
             this.componentFixture.destroy();
@@ -68,33 +70,35 @@ export function articleDetailComponentSpec() {
                 });
             }));
 
-            it("can't edit: logged use isn't owner", injectAsync([AuthService], (authService)=> {
-                let completer = PromiseWrapper.completer();
+            it("can't edit: logged use isn't owner", async(inject([AuthService], (authService)=> {
+                    let completer = PromiseWrapper.completer();
 
-                authService.login({username: "notOwner", _id: "1"}, ()=> {
-                    setTimeout(()=> {
-                        completer.resolve();
-                    }, 100);
-                });
+                    authService.login({username: "notOwner", _id: "1"}, ()=> {
+                        setTimeout(()=> {
+                            completer.resolve();
+                        }, 100);
+                    });
 
-                return completer.promise.then(()=> {
-                    expect(articleDetailComponent.canEdit).toBeFalsy();
+                    completer.promise.then(()=> {
+                        expect(articleDetailComponent.canEdit).toBeFalsy();
+                    })
                 })
-            }));
+            ));
 
-            it("can edit", injectAsync([AuthService], (authService)=> {
-                let completer = PromiseWrapper.completer();
+            it("can edit", async(inject([AuthService], (authService)=> {
+                    let completer = PromiseWrapper.completer();
 
-                authService.login({username: "name", _id: "56a0e27591518a0023bdf794"}, ()=> {
-                    setTimeout(()=> {
-                        completer.resolve();
-                    }, 100);
-                });
+                    authService.login({username: "name", _id: "56a0e27591518a0023bdf794"}, ()=> {
+                        setTimeout(()=> {
+                            completer.resolve();
+                        }, 100);
+                    });
 
-                return completer.promise.then(()=> {
-                    expect(articleDetailComponent.canEdit).toBeTruthy();
-                });
-            }));
+                    completer.promise.then(()=> {
+                        expect(articleDetailComponent.canEdit).toBeTruthy();
+                    });
+                })
+            ));
         });
 
         describe("comments", ()=> {

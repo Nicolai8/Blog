@@ -6,13 +6,13 @@
 	<script src="/node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
 	<script src="/node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
 	<script src="/node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
-	<script src="/node_modules/systemjs/dist/system.src.js"></script>
-	<script src="/node_modules/rxjs/bundles/Rx.js"></script>
-	<script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
-	<script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
-	<script src="/node_modules/angular2/bundles/testing.dev.js"></script>
-	<script src="/node_modules/angular2/bundles/router.dev.js"></script>
-	<script src="/node_modules/angular2/bundles/http.dev.js"></script>
+	<script src="/node_modules/es6-shim/es6-shim.min.js"></script>
+	<script src="/node_modules/zone.js/dist/zone.js"></script>
+	<script src="/node_modules/zone.js/dist/async-test.js"></script>
+	<script src="/node_modules/reflect-metadata/reflect.js"></script>
+	<script src="/node_modules/systemjs/dist/system.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="systemjs.config.js"></script>
 </head>
 <body>
 <script>
@@ -23,9 +23,9 @@
 	});
 
 	Promise.all([
-				System.import("js/app/common/pipes/date-string.pipe.spec"),
-				System.import("js/app/common/services/auth.service.spec"),
-				System.import("js/app/components_spec")
+				System.import("app/common/pipes/date-string.pipe.spec"),
+				System.import("app/common/services/auth.service.spec"),
+				System.import("app/components_spec")
 			])
 			.then(window.onload)
 			.catch(console.error.bind(console));
