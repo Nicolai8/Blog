@@ -41,14 +41,17 @@ var passport = require("passport");
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(sassMiddleware({
+var sassMiddlewareConfig = {
 	src: path.join(__dirname, "public/scss"),
 	dest: path.join(__dirname, "public/css"),
 	outputStyle: "compressed",
-	sourceMap: true,
-	//debug: true,
 	prefix: "/css"
-}));
+};
+if (app.get("env") === "development") {
+	sassMiddlewareConfig.sourceMap = true;
+}
+app.use(sassMiddleware(sassMiddlewareConfig));
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/bower_components", express.static(path.join(__dirname, "bower_components")));
 if (app.get("env") === "development") {

@@ -3,13 +3,32 @@ var config = require("./config");
 var path = require("path");
 var Builder = require("systemjs-builder");
 
-const SYSTEM_BUILDER_CONFIG = {
+let SYSTEM_BUILDER_CONFIG = {
+	map: {
+		"rxjs": "node_modules/rxjs",
+		"@angular": "node_modules/@angular"
+	},
 	defaultJSExtensions: true,
-	paths: {
-		"public/js/tmp/*": `${config.TMP_DEST}/*`,
-		"*": `node_modules/*`
-	}
+	packageConfigPaths: [
+		path.join(".", "node_modules", "*", "package.json"),
+		path.join(".", "node_modules", "@angular", "*", "package.json")
+	],
+	/*paths: {
+		[`${config.TMP_DEST}/!*`]: `${config.TMP_DEST}/!*`,
+		"*": `node_modules/!*`
+	}*/
 };
+
+let packageNames = [
+	"@angular/common",
+	"@angular/compiler",
+	"@angular/core",
+	"@angular/http",
+	"@angular/platform-browser",
+	"@angular/platform-browser-dynamic",
+	"@angular/router",
+	"@angular/router-deprecated"
+];
 
 const BUNDLER_OPTIONS = {
 	format: "cjs",

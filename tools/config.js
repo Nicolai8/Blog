@@ -1,4 +1,5 @@
 "use strict";
+var path = require("path");
 
 module.exports = {
 	APP_SRC: "public/ts",
